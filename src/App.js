@@ -2,9 +2,11 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
-import auth from './utility/auth/auth';
+import Auth from './utility/Auth/Auth';
 
 import Home from './components/Home/Home';
+import Signup from './components/Signup/Signup';
+import Rescue from './components/Rescue/Rescue';
 import Dash from './components/Dash/Dash';
 import Clients from './components/Clients/Clients';
 import ClientEditor from './components/ClientEditor/ClientEditor';
@@ -25,47 +27,57 @@ function App() {
 
                 {/* HOME PAGE */}
                 <Route exact path='/' render={()=> 
-                  auth() === true ? <Home/> : <Redirect to={'/dash'}/>
-                }/>
+                  Auth() === true ? <Home/> : <Redirect to={'/dash'}/>
+                } />
 
+                {/* HOME PAGE */}
+                <Route exact path='/signup' render={()=> 
+                  Auth() === true ? <Signup/> : <Redirect to={'/dash'}/>
+                } />
+
+                <Route exact path='/rescue' render={()=> 
+                  Auth() === true ? <Rescue/> : <Redirect to={'/dash'}/>
+                } />
+
+                {/* DASH ROUTE */}
                 <Route exact path='/dash' render={()=> 
-                  auth() === true ? <Dash/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Dash/> : <Redirect to={'/'}/>
                 } />
 
                 {/* CLIENT ROUTES */}
-                <Route exact path='/clients' render={()=> 
-                  auth() === true ? <Clients/> : <Redirect to={'/'}/>
+                <Route exact path='/clients' render={()=>
+                  Auth() === true ? <Clients/> : <Redirect to={'/'}/>
                 } />
 
                 <Route exact path='/clients/:id' render={()=> 
-                  auth() === true ? <ClientEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <ClientEditor/> : <Redirect to={'/'}/>
                 } />
                 
                 {/* CLAIM ROUTES */}
                 <Route exact path='/claims' render={()=> 
-                  auth() === true ? <Claims/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Claims/> : <Redirect to={'/'}/>
                 } />
 
                 <Route exact path='/claims/:id' render={()=> 
-                  auth() === true ? <ClaimEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <ClaimEditor/> : <Redirect to={'/'}/>
                 } />
 
                 {/* POLICY ROUTES */}
                 <Route exact path='/policies' render={()=> 
-                  auth() === true ? <Policies/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Policies/> : <Redirect to={'/'}/>
                 } />
 
                 <Route exact path='/policies/:id' render={()=> 
-                  auth() === true ? <PolicyEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <PolicyEditor/> : <Redirect to={'/'}/>
                 } />
 
                 {/* NOTE ROUTES */}
                 <Route exact path='/notes' render={()=> 
-                  auth() === true ? <Notes/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Notes/> : <Redirect to={'/'}/>
                 } />
 
                 <Route exact path='/notes/:id' render={()=> 
-                  auth() === true ? <NoteEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <NoteEditor/> : <Redirect to={'/'}/>
                 } />
 
                 <Route render={()=> <PageNotFound/>} />

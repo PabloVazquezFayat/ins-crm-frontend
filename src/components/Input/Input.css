@@ -1,0 +1,15 @@
+.input-wrapper{
+    height: 38px;
+    margin: 5px 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input{
+    background: transparent;
+    padding: 10px;
+    border: none;
+    border-bottom: solid 1px gray;
+    font-size: 14px;
+    font-weight: 400;
+}
