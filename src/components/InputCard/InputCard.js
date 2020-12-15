@@ -1,12 +1,12 @@
 import './InputCard.css'
 import React from 'react'
 
-export default function InputCard(props) {
+function InputCard(props, ref) {
 
     const { header, button, action } = props;
 
     return (
-        <div className="input-card-container">   
+        <div className="input-card-container" ref={ref}>   
 
             <div className="input-card-body">
 
@@ -25,3 +25,5 @@ export default function InputCard(props) {
         </div>
     )
 }
+
+export default React.forwardRef(InputCard);

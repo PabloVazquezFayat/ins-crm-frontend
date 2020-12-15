@@ -27,16 +27,16 @@ function App() {
 
                 {/* HOME PAGE */}
                 <Route exact path='/' render={()=> 
-                  Auth() === true ? <Home/> : <Redirect to={'/dash'}/>
+                  Auth() === true ? <Home/> : <Redirect to={'/dash'}/>//false
                 } />
 
                 {/* HOME PAGE */}
                 <Route exact path='/signup' render={()=> 
-                  Auth() === true ? <Signup/> : <Redirect to={'/dash'}/>
+                  Auth() === true ? <Signup/> : <Redirect to={'/dash'}/>//false
                 } />
 
                 <Route exact path='/rescue' render={()=> 
-                  Auth() === true ? <Rescue/> : <Redirect to={'/dash'}/>
+                  Auth() === true ? <Rescue/> : <Redirect to={'/dash'}/>//false
                 } />
 
                 {/* DASH ROUTE */}

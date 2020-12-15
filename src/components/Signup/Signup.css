@@ -1,0 +1,83 @@
+.sign-up-page{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-container{
+    /* background: red; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-up-wrapper{
+    /* background: violet; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.sign-up-form-wrapper{
+    background: red;
+    overflow: hidden;
+}
+
+.sign-up-form-slider{
+    background: green;
+}
+
+
+.breadcrumb-container{
+    /* background: green; */
+    margin: 0px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.breadcrumb-step{
+    /* background: yellowgreen; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.breadcrumb-spacer{
+    background: rgb(139, 134, 134);
+    width: 1px;
+    height: 70px;
+    margin: 5px 27.5px;
+    border: none;
+    align-self: flex-end;
+}
+
+.breadcrumb-circle{
+    background-color: transparent;
+    border: solid 2px rgb(37, 106, 233);
+    width: 34px;
+    height: 34px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    color: rgb(37, 106, 233);
+    margin: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.breadcrumb-text{
+    width: 100px;
+    color: rgb(139, 134, 134);
+    text-align: right;
+    font-size: 12px;
+    margin: 0px 10px 0px 0px
+}
+
+
+
