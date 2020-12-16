@@ -54,3 +54,7 @@
     border: none;
     text-transform: uppercase;
 }
+
+.input-card-button-container button:hover{
+    cursor: pointer;
+}
