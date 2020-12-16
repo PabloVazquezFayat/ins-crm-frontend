@@ -23,7 +23,8 @@
 }
 
 .sign-up-form-wrapper{
-    /* background: red; */
+    background: blue;
+    height: 335px;
     overflow: hidden;
 }
 
@@ -34,7 +35,7 @@
 
 .breadcrumb-container{
     /* background: green; */
-    margin: 11px 20px 20px 20px;
+    margin: 11px 20px 0px 20px;
     display: flex;
     flex-direction: column;
 }
