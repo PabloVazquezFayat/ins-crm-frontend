@@ -1,29 +1,3 @@
-.sign-up-page{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.sign-up-container{
-    /* background: red; */
-    width: 100%;
-    height: 335px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.sign-up-wrapper{
-    /* background: violet; */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin-left: -208px;
-}
-
 .breadcrumb-container{
     /* background: green; */
     margin: 11px 20px 0px 20px;
@@ -75,7 +49,3 @@
     font-size: 12px;
     margin: 0px 10px 0px 0px
 }
-
-
-
-

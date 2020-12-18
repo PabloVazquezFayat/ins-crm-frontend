@@ -4,38 +4,9 @@ import InputCard from '../InputCard/InputCard'
 import Input from '../Input/Input'
 
 import {useSpring, animated} from 'react-spring'
+import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
-export default function Signup() {
-
-    const fadeIn = (settings)=> {
-        const {duration, delay} = settings;
-        return {
-            opacity: 1, 
-            transform: "translate(0px, 0px)",
-            from: {opacity: 0, transform: "translate(-20px, 0px)" },
-            delay: delay,
-            config: {duration: duration}
-        }
-    }
-
-    const expandDown = (settings)=> {
-        const {duration, delay} = settings;
-        return {
-            height: "70px",
-            overflow: "hidden",
-            opacity: 1,
-            from: {opacity: 0,  height: "0px", overflow: "hidden"}, 
-            delay: delay,
-            config: {duration: duration}
-        }
-    }
-
-    const step1 = useSpring(fadeIn({duration: 200, delay: 0}));
-    const step2 = useSpring(fadeIn({duration: 200, delay: 200}));
-    const step3 = useSpring(fadeIn({duration: 200, delay: 400}));
-
-    const connectorStep1 = useSpring(expandDown({duration: 200, delay: 800}));
-    const connectorStep2 = useSpring(expandDown({duration: 200, delay: 1100}));
+export default function Signup() {    
 
     const [card, setCard] = useState("0px");
     const [card1, setCard1] = useState(1);
@@ -56,27 +27,23 @@ export default function Signup() {
     const toggleCard2 = useSpring({opacity: card2});
     const toggleCard3 = useSpring({opacity: card3});
 
-    const next = ()=> console.log('next')//setCard(state => (state + 1) % 3);
+    const next = ()=> console.log('next')
 
-    const gotToCard1 = ()=> {
-        setCard("0px"); 
-        setCard1(1);
-        setCard2(0);
-        setCard3(0);
-    }
-
-    const gotToCard2 = ()=> {
-        setCard("-320px"); 
-        setCard1(0);
-        setCard2(1);
-        setCard3(0);
-    }
-
-    const gotToCard3 = ()=> {
-        setCard("-640px"); 
-        setCard1(0);
-        setCard2(0);
-        setCard3(1);
+    const gotToCard = (index, offset)=> {
+        setCard(offset); 
+        if(index === 1){
+            setCard1(1);
+            setCard2(0);
+            setCard3(0);
+        }else if(index === 2){
+            setCard1(0);
+            setCard2(1);
+            setCard3(0);
+        }else if(index === 3){
+            setCard1(0);
+            setCard2(0);
+            setCard3(1);
+        }
     }
 
     return (
@@ -84,43 +51,30 @@ export default function Signup() {
             <div className="sign-up-container">
                 <div className="sign-up-wrapper">
 
-                    <div className="breadcrumb-container step-1">
-
-                        <animated.div style={step1}>
-                            <div className="breadcrumb-step">
-                                <p className="breadcrumb-text">User details</p>
-                                <div className="breadcrumb-circle" onClick={gotToCard1}>1</div>
-                            </div>
-                        </animated.div>
-                        
-                        <animated.div style={connectorStep1}>
-                            <hr className="breadcrumb-spacer"/>
-                        </animated.div>
-
-                        <animated.div style={step2}>
-                            <div className="breadcrumb-step">
-                                <p className="breadcrumb-text">Payment method</p>
-                                <div className="breadcrumb-circle" onClick={gotToCard2}>2</div>
-                            </div>
-                        </animated.div>
-                        
-                        <animated.div style={connectorStep2}>
-                            <hr className="breadcrumb-spacer"/>
-                        </animated.div>
-                        
-                        <animated.div style={step3}>
-                            <div className="breadcrumb-step">
-                                <p className="breadcrumb-text">Review</p>
-                                <div className="breadcrumb-circle" onClick={gotToCard3}>3</div>
-                            </div>
-                        </animated.div>
-                        
-                    </div>
+                    <BreadCrumb 
+                        steps={{
+                            step_1:{
+                                text: 'User details',
+                                number: '1',
+                                action: ()=> gotToCard(1, '0px')
+                            },
+                            step_2:{
+                                text: 'Payment method',
+                                number: '2',
+                                action: ()=> gotToCard(2, '-320px')
+                            },
+                            step_3:{
+                                text: 'Review',
+                                number: '1',
+                                action: ()=> gotToCard(3, '-640px'),
+                            }
+                        }}
+                    />
 
                     <animated.div style={fistCard} className="sign-up-form-wrapper">
                         <animated.div style={cardDeck}>
                             <animated.div style={toggleCard1}>
-                                <InputCard header="sign up" button="next" action={gotToCard2}>
+                                <InputCard header="sign up" button="next" action={()=> gotToCard(1, '0px')}>
                                     <Input type="text" name="first-name" id="sign-up-first-name" placeholder="First name"/>
                                     <Input type="text" name="last-name" id="sign-up-last-name" placeholder="Last name"/>
                                     <Input type="email" name="email" id="sign-up-email" placeholder="Email"/>
@@ -129,7 +83,7 @@ export default function Signup() {
                             </animated.div>
 
                             <animated.div style={toggleCard2}>
-                                <InputCard header="payment method" button="next" action={gotToCard3}>
+                                <InputCard header="payment method" button="next" action={()=> gotToCard(2, '-320px')}>
                                     <Input type="text" name="cc-name" id="sign-up-cc-name" placeholder="Name on credit card"/>
                                     <Input type="number" name="cc-number" id="sign-up-cc-number" minLength="16" maxLength="16" placeholder="0000-0000-0000-0000"/>
                                     <Input type="text" name="cc-expiry" id="sign-up-cc-expiry" minLength="7" maxLength="7" placeholder="mm/yyyy"/>
