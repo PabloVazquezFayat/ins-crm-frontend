@@ -10,40 +10,40 @@ const {
     NEW_USER_CC_NUMBER,
     NEW_USER_CC_EXPIRY,
     NEW_USER_CC_SECCODE
-} = actions;
+} = actions.newUserActions;
 
 function newUserInput(state = initialState, action){
-    console.log(action.type)
 
-    if(action.type === NEW_USER_FIRST_NAME){
-        const newState = {...state};
-        newState.newUserData.lastName = action.payload;
-        console.log(newState);
-        return newState;
+    const newState = {...state};
+
+    switch(action.type){
+        case NEW_USER_FIRST_NAME : 
+            newState.newUserData.firstName = action.payload;
+            return newState;
+        case NEW_USER_LAST_NAME :
+            newState.newUserData.lastName = action.payload;
+            return newState;
+        case NEW_USER_EMAIL :
+            newState.newUserData.email = action.payload;
+            return newState;
+        case NEW_USER_PASSWORD :
+            newState.newUserData.password = action.payload;
+            return newState;
+        case NEW_USER_CC_NAME :
+            newState.newUserData.ccName = action.payload;
+            return newState;
+        case NEW_USER_CC_NUMBER :
+            newState.newUserData.cc = action.payload;
+            return newState;
+        case NEW_USER_CC_EXPIRY :
+            newState.newUserData.expiry = action.payload;
+            return newState;
+        case NEW_USER_CC_SECCODE :
+            newState.newUserData.securityCode = action.payload;
+            return newState;
+        default :
+            return state;
     }
-
-    return state;
-
-    // switch(action.type){
-    //     case NEW_USER_FIRST_NAME : 
-    //         return {...state, firstName: action.payload};
-    //     case NEW_USER_LAST_NAME :
-    //         return {...state, lastName: action.payload};
-    //     case NEW_USER_EMAIL :
-    //         return {...state, email: action.payload};
-    //     case NEW_USER_PASSWORD :
-    //         return {...state, password: action.payload};
-    //     case NEW_USER_CC_NAME :
-    //         return {...state, ccName: action.payload};
-    //     case NEW_USER_CC_NUMBER :
-    //         return {...state, cc: action.paylod};
-    //     case NEW_USER_CC_EXPIRY :
-    //         return {...state, expiry: action.payload};
-    //     case NEW_USER_CC_SECCODE :
-    //         return {...state, securityCode: action.payload};
-    //     default :
-    //         return state;
-    // }
 
 }
 

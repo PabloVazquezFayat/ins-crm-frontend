@@ -19,7 +19,7 @@ export default function InputCard(props) {
             </div>
 
             <div className="input-card-button-container">
-                <button onClick={(e)=> action(e)}>{button}</button>
+                <button onClick={action}>{button}</button>
             </div>
 
         </div>

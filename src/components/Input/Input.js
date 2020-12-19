@@ -15,6 +15,7 @@ export default function Input(props) {
                 placeholder={ placeholder ? placeholder : ""}
                 minLength={ minLength ? minLength : null}
                 maxLength={ maxLength ? maxLength : null}
+                autoComplete="off"
                 onChange={action}
             />
         </div>
