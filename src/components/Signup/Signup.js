@@ -3,17 +3,23 @@ import React, { useState } from 'react'
 import InputCard from '../InputCard/InputCard'
 import Input from '../Input/Input'
 
+import { useSelector, useDispatch } from 'react-redux'
+
 import {useSpring, animated} from 'react-spring'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
-export default function Signup() {    
+export default function Signup() {   
+    
+    const {newUserInput: {newUserData}} = useSelector(state => state);
+    console.log(newUserData);
 
-    const [card, setCard] = useState("0px");
-    const [card1, setCard1] = useState(1);
-    const [card2, setCard2] = useState(0);
-    const [card3, setCard3] = useState(0);
+    const dispatch = useDispatch();
 
-    const fistCard = useSpring({
+    const [cardOffset, setCardOffset] = useState("0px");
+    const [cardOpacity, setCardOpacity] = useState({card1: 1, card2: 0, card3: 0});
+
+    //animates the carousel on first load
+    const cardCarousel = useSpring({
         opacity: 1, 
         transform: "translate(0px, 0px)",
         from: {opacity: 0, transform: "translate(0px, 360px)"},
@@ -21,30 +27,27 @@ export default function Signup() {
         config: {duration: 300}
     })
 
-    const cardDeck = useSpring({transform: `translate(0px, ${card})`});
+    //animates the deck on interactions
+    const cardDeck = useSpring({transform: `translate(0px, ${cardOffset})`});
 
-    const toggleCard1 = useSpring({opacity: card1});
-    const toggleCard2 = useSpring({opacity: card2});
-    const toggleCard3 = useSpring({opacity: card3});
+    //toggles the opacity of the each card based on interactions 
+    const toggleCard1 = useSpring({opacity: cardOpacity.card1});
+    const toggleCard2 = useSpring({opacity: cardOpacity.card2});
+    const toggleCard3 = useSpring({opacity: cardOpacity.card3});
 
-    const next = ()=> console.log('next')
-
+    //updates the toggle state of each card
     const gotToCard = (index, offset)=> {
-        setCard(offset); 
+        setCardOffset(offset); 
         if(index === 1){
-            setCard1(1);
-            setCard2(0);
-            setCard3(0);
+            setCardOpacity({card1: 1, card2: 0, card3: 0});
         }else if(index === 2){
-            setCard1(0);
-            setCard2(1);
-            setCard3(0);
+            setCardOpacity({card1: 0, card2: 1, card3: 0});
         }else if(index === 3){
-            setCard1(0);
-            setCard2(0);
-            setCard3(1);
+            setCardOpacity({card1: 0, card2: 0, card3: 1});
         }
     }
+
+    const next = ()=> console.log('next')
 
     return (
         <div className="sign-up-page">
@@ -54,7 +57,7 @@ export default function Signup() {
                     <BreadCrumb 
                         steps={{
                             step_1:{
-                                text: 'User details',
+                                text: 'Account details',
                                 number: '1',
                                 action: ()=> gotToCard(1, '0px')
                             },
@@ -64,18 +67,20 @@ export default function Signup() {
                                 action: ()=> gotToCard(2, '-320px')
                             },
                             step_3:{
-                                text: 'Review',
-                                number: '1',
+                                text: 'Review & submit',
+                                number: '3',
                                 action: ()=> gotToCard(3, '-640px'),
                             }
                         }}
                     />
 
-                    <animated.div style={fistCard} className="sign-up-form-wrapper">
+                    <animated.div style={cardCarousel} className="sign-up-form-wrapper">
+
                         <animated.div style={cardDeck}>
+
                             <animated.div style={toggleCard1}>
                                 <InputCard header="sign up" button="next" action={()=> gotToCard(1, '0px')}>
-                                    <Input type="text" name="first-name" id="sign-up-first-name" placeholder="First name"/>
+                                    <Input type="text" name="first-name" id="sign-up-first-name" placeholder="First name" action={(e)=> dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value})}/>
                                     <Input type="text" name="last-name" id="sign-up-last-name" placeholder="Last name"/>
                                     <Input type="email" name="email" id="sign-up-email" placeholder="Email"/>
                                     <Input type="password" name="password" id="sign-up-password" placeholder="Password"/>
@@ -96,7 +101,9 @@ export default function Signup() {
                                     REVIEW
                                 </InputCard>
                             </animated.div>
+
                         </animated.div>
+
                     </animated.div>
 
                 </div>
