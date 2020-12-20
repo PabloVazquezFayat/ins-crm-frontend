@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Input(props) {
 
-    const { type, name, id, placeholder, minLength, maxLength, action } = props;
+    const { type, name, id, placeholder, minLength, maxLength, autoComplete, action } = props;
 
     return (
         <div className="input-wrapper">
@@ -15,7 +15,7 @@ export default function Input(props) {
                 placeholder={ placeholder ? placeholder : ""}
                 minLength={ minLength ? minLength : null}
                 maxLength={ maxLength ? maxLength : null}
-                autoComplete="off"
+                autoComplete={ autoComplete ? autoComplete : "off"}
                 onChange={action}
             />
         </div>

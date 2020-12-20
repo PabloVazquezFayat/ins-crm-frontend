@@ -1,0 +1,29 @@
+.input-review-wrapper{
+    /* background: orange; */
+    height: auto;
+    margin: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: column; */
+    border-bottom: solid 1px gray;
+}
+
+.input-review-label{
+    /* background: red; */
+    padding: 10px;
+    margin: 0px;
+    border: none;
+    /* border-bottom: solid 1px gray; */
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.input-review{
+    /* background: green; */
+    padding: 10px;
+    margin: 0px;
+    border: none;
+    /* border-bottom: solid 1px gray; */
+    font-size: 14px;
+    font-weight: 400;
+}

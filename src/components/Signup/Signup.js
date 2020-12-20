@@ -2,6 +2,7 @@ import './Signup.css'
 import React, { useState } from 'react'
 import InputCard from '../InputCard/InputCard'
 import Input from '../Input/Input'
+import InputReview from '../InputReview/InputReview'
 
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -9,9 +10,6 @@ import {useSpring, animated} from 'react-spring'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
 export default function Signup() {   
-    
-    // const {newUserInput: {newUserData}} = useSelector(state => state);
-    // console.log(newUserData);
 
     const dispatch = useDispatch();
 
@@ -47,7 +45,20 @@ export default function Signup() {
         }
     }
 
-    const next = ()=> console.log('next')
+    const next = ()=> console.log('next');
+
+    const   {newUserInput: 
+                {newUserData: {
+                        firstName,
+                        lastName,
+                        email,
+                        ccName,
+                        cc,
+                        expiry,
+                        securityCode
+                    }
+                }
+            } = useSelector(state => state);
 
     return (
         <div className="sign-up-page">
@@ -78,29 +89,47 @@ export default function Signup() {
 
                         <animated.div style={cardDeck}>
 
-                            <animated.div style={toggleCard1}>
-                                <InputCard header="sign up" button="next" action={()=> gotToCard(2, '-320px')}>
+                            <animated.form style={toggleCard1}>
+                                <InputCard header="account details" button="next" action={(e)=> {
+                                    e.preventDefault();
+                                    gotToCard(2, '-320px');
+                                }}>
                                     <Input type="text" name="first-name" id="sign-up-first-name" placeholder="First name" action={(e)=> dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value})}/>
                                     <Input type="text" name="last-name" id="sign-up-last-name" placeholder="Last name" action={(e)=> dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value})}/>
-                                    <Input type="email" name="email" id="sign-up-email" placeholder="Email" action={(e)=> dispatch({type: "NEW_USER_EMAIL", payload: e.target.value})}/>
-                                    <Input type="password" name="password" id="sign-up-password" placeholder="Password" action={(e)=> dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value})}/>
+                                    <Input type="email" name="email" id="sign-up-email" placeholder="Email" autoComplete="off"  action={(e)=> dispatch({type: "NEW_USER_EMAIL", payload: e.target.value})}/>
+                                    <Input type="password" name="password" id="sign-up-password" placeholder="Password" autoComplete="new-password" action={(e)=> dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value})}/>
                                 </InputCard>
-                            </animated.div>
+                            </animated.form>
 
-                            <animated.div style={toggleCard2}>
-                                <InputCard header="payment method" button="next" action={()=> gotToCard(3, '-640px')}>
+                            <animated.form style={toggleCard2}>
+                                <InputCard header="payment method" button="next" action={(e)=> {
+                                    e.preventDefault();
+                                    gotToCard(3, '-640px');
+                                }}>
                                     <Input type="text" name="cc-name" id="sign-up-cc-name" placeholder="Name on credit card" action={(e)=> dispatch({type: "NEW_USER_CC_NAME", payload: e.target.value})}/>
                                     <Input type="number" name="cc-number" id="sign-up-cc-number" minLength="16" maxLength="16" placeholder="0000-0000-0000-0000" action={(e)=> dispatch({type: "NEW_USER_CC_NUMBER", payload: e.target.value})}/>
                                     <Input type="text" name="cc-expiry" id="sign-up-cc-expiry" minLength="7" maxLength="7" placeholder="mm/yyyy" action={(e)=> dispatch({type: "NEW_USER_CC_EXPIRY", payload: e.target.value})}/>
                                     <Input type="number" name="cc-security-code" id="sign-up-cc-security-code" minLength="3" maxLength="3" placeholder="000" action={(e)=> dispatch({type: "NEW_USER_CC_SECCODE", payload: e.target.value})}/>
                                 </InputCard>
-                            </animated.div> 
+                            </animated.form> 
 
-                            <animated.div style={toggleCard3}>
-                                <InputCard header="payment method" button="submit" action={next}>
-                                    REVIEW
+                            <animated.form style={toggleCard3}>
+                                <InputCard header="review & submit" button="submit" action={(e)=> {
+                                    e.preventDefault();
+                                    next();
+                                }}>
+                                    <h3 className='input-label'>Account Details</h3>
+                                    <InputReview label={'First name:'}>{firstName}</InputReview>
+                                    <InputReview label={'Last name:'}>{lastName}</InputReview>
+                                    <InputReview label={'Email:'}>{email}</InputReview>
+                                    <div className='spacer'></div>
+                                    <h3 className='input-label'>Payment Method</h3>
+                                    <InputReview label={'Name:'}>{ccName}</InputReview>
+                                    <InputReview label={'Number:'}>{cc}</InputReview>
+                                    <InputReview label={'Expires:'}>{expiry}</InputReview>
+                                    <InputReview label={'Security code:'}>{securityCode}</InputReview>
                                 </InputCard>
-                            </animated.div>
+                            </animated.form>
 
                         </animated.div>
 
