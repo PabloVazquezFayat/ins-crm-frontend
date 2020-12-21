@@ -45,13 +45,12 @@ export default function Signup() {
         }
     }
 
-    const next = ()=> console.log('next');
-
     const   {newUserInput: 
                 {newUserData: {
                         firstName,
                         lastName,
                         email,
+                        password,
                         ccName,
                         cc,
                         expiry,
@@ -59,6 +58,24 @@ export default function Signup() {
                     }
                 }
             } = useSelector(state => state);
+    
+    const validateCard = (cardNumber, cb)=> {
+
+        if(cardNumber === 1 && firstName && lastName && email && password){
+            console.log('Card 1 Valid');
+            cb();
+            return;
+        }
+
+        if(cardNumber === 2 && ccName && cc && expiry && securityCode){
+            console.log('Card 2 Valid');
+            cb();
+            return;
+        }
+
+    }
+
+    const submit = ()=> console.log('Submit');
 
     return (
         <div className="sign-up-page">
@@ -92,7 +109,7 @@ export default function Signup() {
                             <animated.form style={toggleCard1}>
                                 <InputCard header="account details" button="next" action={(e)=> {
                                     e.preventDefault();
-                                    gotToCard(2, '-320px');
+                                    validateCard(1, ()=> gotToCard(2, '-320px'));
                                 }}>
                                     <Input type="text" name="first-name" id="sign-up-first-name" placeholder="First name" action={(e)=> dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value})}/>
                                     <Input type="text" name="last-name" id="sign-up-last-name" placeholder="Last name" action={(e)=> dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value})}/>
@@ -104,7 +121,7 @@ export default function Signup() {
                             <animated.form style={toggleCard2}>
                                 <InputCard header="payment method" button="next" action={(e)=> {
                                     e.preventDefault();
-                                    gotToCard(3, '-640px');
+                                    validateCard(2, ()=> gotToCard(3, '-640px'));
                                 }}>
                                     <Input type="text" name="cc-name" id="sign-up-cc-name" placeholder="Name on credit card" action={(e)=> dispatch({type: "NEW_USER_CC_NAME", payload: e.target.value})}/>
                                     <Input type="number" name="cc-number" id="sign-up-cc-number" minLength="16" maxLength="16" placeholder="0000-0000-0000-0000" action={(e)=> dispatch({type: "NEW_USER_CC_NUMBER", payload: e.target.value})}/>
@@ -116,7 +133,7 @@ export default function Signup() {
                             <animated.form style={toggleCard3}>
                                 <InputCard header="review & submit" button="submit" action={(e)=> {
                                     e.preventDefault();
-                                    next();
+                                    submit();
                                 }}>
                                     <h3 className='input-label'>Account Details</h3>
                                     <InputReview label={'First name:'}>{firstName}</InputReview>
