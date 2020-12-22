@@ -3,12 +3,16 @@ import React from 'react'
 
 export default function Input(props) {
 
-    const { type, name, id, placeholder, minLength, maxLength, autoComplete, action } = props;
+    const { type, name, id, placeholder, minLength, maxLength, autoComplete, action, error } = props;
+
+    if(error){
+        console.log(error);
+    }
 
     return (
-        <div className="input-wrapper">
+        <div className="input-wrapper" >
             <input 
-                className="input" 
+                className={ error ? 'input-error' : 'input'}
                 type={type ? type : "text"} 
                 name={name ? name : ""}
                 id={id ? id : ""} 

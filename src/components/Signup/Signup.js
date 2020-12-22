@@ -1,17 +1,14 @@
 import './Signup.css'
 import React, { useState } from 'react'
+import { useSpring, animated } from 'react-spring'
+import { useSelector, useDispatch } from 'react-redux'
+
 import InputCard from '../InputCard/InputCard'
 import Input from '../Input/Input'
 import InputReview from '../InputReview/InputReview'
-
-import { useSelector, useDispatch } from 'react-redux'
-
-import {useSpring, animated} from 'react-spring'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
 export default function Signup() {   
-
-    const dispatch = useDispatch();
 
     const [cardOffset, setCardOffset] = useState("0px");
     const [cardOpacity, setCardOpacity] = useState({card1: 1, card2: 0, card3: 0});
@@ -45,25 +42,26 @@ export default function Signup() {
         }
     }
 
+    //redux dispatch action hook
+    const dispatch = useDispatch();
+
+    //redux state selector hook
     const   {newUserInput: 
-                {newUserData: {
-                        firstName,
-                        lastName,
-                        email,
-                        password,
-                        ccName,
-                        cc,
-                        expiry,
-                        securityCode
-                    }
+                {newUserData: 
+                    { firstName, lastName, email, password, ccName, cc, expiry, securityCode }
                 }
             } = useSelector(state => state);
+
+    const [errors, setErrors] = useState({card1: {}, card2: {}});
     
-    const validateCard = (cardNumber, cb)=> {
+    const validateCard = (cardNumber, cb, onError)=> {
 
         if(cardNumber === 1 && firstName && lastName && email && password){
             console.log('Card 1 Valid');
             cb();
+            return;
+        }else if (!firstName || !lastName || email || password){
+            onError();
             return;
         }
 
@@ -71,10 +69,49 @@ export default function Signup() {
             console.log('Card 2 Valid');
             cb();
             return;
+        }else if(!ccName && !cc && !expiry && !securityCode){
+            validationErrors(cardNumber);
+            return;
         }
 
     }
 
+    const validationErrors = (cardNumber)=> {
+
+        const card1 = {firstName, lastName, email, password};
+        const card2 = {ccName, cc, expiry, securityCode};
+
+        const createErrors = (card)=> {
+
+            const cardErrors = {}
+
+            for (const key in card) {
+                if(!card[key]){
+                    cardErrors[key] = true;
+                }
+            }
+
+            return cardErrors;
+        }
+
+        if(cardNumber === 1){
+            const cardErrors = createErrors(card1);
+            const currentErrors = {...errors};
+            currentErrors.card1 = cardErrors;
+            setErrors(currentErrors);
+        }else if(cardNumber === 2){
+            const cardErrors = createErrors(card2);
+            const currentErrors = {...errors};
+            currentErrors.card2 = cardErrors;
+            setErrors(currentErrors);
+        }
+
+    }
+
+    const clearError = ()=> {
+        // code here
+    }
+    
     const submit = ()=> console.log('Submit');
 
     return (
@@ -109,29 +146,92 @@ export default function Signup() {
                             <animated.form style={toggleCard1}>
                                 <InputCard header="account details" button="next" action={(e)=> {
                                     e.preventDefault();
-                                    validateCard(1, ()=> gotToCard(2, '-320px'));
+                                    validateCard(1, ()=> gotToCard(2, '-320px'), ()=> validationErrors(1));
                                 }}>
-                                    <Input type="text" name="first-name" id="sign-up-first-name" placeholder="First name" action={(e)=> dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value})}/>
-                                    <Input type="text" name="last-name" id="sign-up-last-name" placeholder="Last name" action={(e)=> dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value})}/>
-                                    <Input type="email" name="email" id="sign-up-email" placeholder="Email" autoComplete="off"  action={(e)=> dispatch({type: "NEW_USER_EMAIL", payload: e.target.value})}/>
-                                    <Input type="password" name="password" id="sign-up-password" placeholder="Password" autoComplete="new-password" action={(e)=> dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value})}/>
+                                    <Input 
+                                        type="text" 
+                                        name="first-name" 
+                                        id="sign-up-first-name" 
+                                        placeholder="First name" 
+                                        action={(e)=> dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value})}
+                                        error={errors.card1.firstName ? errors.card1.firstName : false}
+                                    />
+                                    <Input 
+                                        type="text" 
+                                        name="last-name" 
+                                        id="sign-up-last-name" 
+                                        placeholder="Last name" 
+                                        action={(e)=> dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value})}
+                                        error={errors.card1.lastName ? errors.card1.lastName : false}
+                                    />
+                                    <Input 
+                                        type="email" 
+                                        name="email" 
+                                        id="sign-up-email" 
+                                        placeholder="Email" 
+                                        autoComplete="off"  
+                                        action={(e)=> dispatch({type: "NEW_USER_EMAIL", payload: e.target.value})}
+                                        error={errors.card1.email ? errors.card1.email : false}
+                                    />
+                                    <Input 
+                                        type="password" 
+                                        name="password" 
+                                        id="sign-up-password" 
+                                        placeholder="Password" 
+                                        autoComplete="new-password" 
+                                        action={(e)=> dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value})}
+                                        error={errors.card1.password ? errors.card1.password : false}
+                                    />
                                 </InputCard>
                             </animated.form>
 
                             <animated.form style={toggleCard2}>
                                 <InputCard header="payment method" button="next" action={(e)=> {
                                     e.preventDefault();
-                                    validateCard(2, ()=> gotToCard(3, '-640px'));
+                                    validateCard(2, ()=> gotToCard(3, '-640px'), ()=> validationErrors(2));
                                 }}>
-                                    <Input type="text" name="cc-name" id="sign-up-cc-name" placeholder="Name on credit card" action={(e)=> dispatch({type: "NEW_USER_CC_NAME", payload: e.target.value})}/>
-                                    <Input type="number" name="cc-number" id="sign-up-cc-number" minLength="16" maxLength="16" placeholder="0000-0000-0000-0000" action={(e)=> dispatch({type: "NEW_USER_CC_NUMBER", payload: e.target.value})}/>
-                                    <Input type="text" name="cc-expiry" id="sign-up-cc-expiry" minLength="7" maxLength="7" placeholder="mm/yyyy" action={(e)=> dispatch({type: "NEW_USER_CC_EXPIRY", payload: e.target.value})}/>
-                                    <Input type="number" name="cc-security-code" id="sign-up-cc-security-code" minLength="3" maxLength="3" placeholder="000" action={(e)=> dispatch({type: "NEW_USER_CC_SECCODE", payload: e.target.value})}/>
+                                    <Input 
+                                        type="text" 
+                                        name="cc-name" 
+                                        id="sign-up-cc-name" 
+                                        placeholder="Name on credit card" 
+                                        action={(e)=> dispatch({type: "NEW_USER_CC_NAME", payload: e.target.value})}
+                                        error={errors.card2.ccName ? errors.card2.ccName : false}
+                                    />
+                                    <Input 
+                                        type="number" 
+                                        name="cc-number" 
+                                        id="sign-up-cc-number" 
+                                        minLength="16" maxLength="16" 
+                                        placeholder="0000-0000-0000-0000" 
+                                        action={(e)=> dispatch({type: "NEW_USER_CC_NUMBER", payload: e.target.value})}
+                                        error={errors.card2.cc ? errors.card2.cc : false}
+                                    />
+                                    <Input 
+                                        type="text" 
+                                        name="cc-expiry" 
+                                        id="sign-up-cc-expiry" 
+                                        minLength="7" 
+                                        maxLength="7" 
+                                        placeholder="mm/yyyy" 
+                                        action={(e)=> dispatch({type: "NEW_USER_CC_EXPIRY", payload: e.target.value})}
+                                        error={errors.card2.expiry ? errors.card2.expiry : false}
+                                    />
+                                    <Input 
+                                        type="number" 
+                                        name="cc-security-code" 
+                                        id="sign-up-cc-security-code" 
+                                        minLength="3" 
+                                        maxLength="3" 
+                                        placeholder="000" 
+                                        action={(e)=> dispatch({type: "NEW_USER_CC_SECCODE", payload: e.target.value})}
+                                        error={errors.card2.securityCode ? errors.card2.securityCode : false}
+                                    />
                                 </InputCard>
                             </animated.form> 
 
                             <animated.form style={toggleCard3}>
-                                <InputCard header="review & submit" button="submit" action={(e)=> {
+                                <InputCard header="review &amp; submit" button="submit" action={(e)=> {
                                     e.preventDefault();
                                     submit();
                                 }}>

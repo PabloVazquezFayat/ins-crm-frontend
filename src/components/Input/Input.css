@@ -13,3 +13,13 @@
     font-size: 14px;
     font-weight: 400;
 }
+
+.input-error{
+    background: transparent;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 400;
+    outline: none;
+    border-bottom: solid 2px rgb(233, 37, 47)
+}
