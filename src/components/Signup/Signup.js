@@ -57,21 +57,15 @@ export default function Signup() {
     const validateCard = (cardNumber, cb, onError)=> {
 
         if(cardNumber === 1 && firstName && lastName && email && password){
-            console.log('Card 1 Valid');
             cb();
-            return;
-        }else if (!firstName || !lastName || email || password){
+        }else if (cardNumber === 1 && (!firstName || !lastName || email || password)){
             onError();
-            return;
         }
 
         if(cardNumber === 2 && ccName && cc && expiry && securityCode){
-            console.log('Card 2 Valid');
             cb();
-            return;
-        }else if(!ccName && !cc && !expiry && !securityCode){
-            validationErrors(cardNumber);
-            return;
+        }else if(cardNumber === 2 && (!ccName || !cc || !expiry || !securityCode)){
+            onError();
         }
 
     }
@@ -108,8 +102,18 @@ export default function Signup() {
 
     }
 
-    const clearError = ()=> {
-        // code here
+    const clearError = (cardNumber, prop)=> {
+        if(cardNumber === 1){
+            const currentErrors = {...errors};
+            currentErrors.card1[prop] = false;
+            setErrors(currentErrors);
+        }
+        if(cardNumber === 2){
+            const currentErrors = {...errors};
+            currentErrors.card2[prop] = false;
+            setErrors(currentErrors);
+        }
+
     }
     
     const submit = ()=> console.log('Submit');
@@ -153,7 +157,10 @@ export default function Signup() {
                                         name="first-name" 
                                         id="sign-up-first-name" 
                                         placeholder="First name" 
-                                        action={(e)=> dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value});
+                                            clearError(1, 'firstName');
+                                        }}
                                         error={errors.card1.firstName ? errors.card1.firstName : false}
                                     />
                                     <Input 
@@ -161,7 +168,10 @@ export default function Signup() {
                                         name="last-name" 
                                         id="sign-up-last-name" 
                                         placeholder="Last name" 
-                                        action={(e)=> dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value});
+                                            clearError(1, 'lastName');
+                                        }}
                                         error={errors.card1.lastName ? errors.card1.lastName : false}
                                     />
                                     <Input 
@@ -170,7 +180,10 @@ export default function Signup() {
                                         id="sign-up-email" 
                                         placeholder="Email" 
                                         autoComplete="off"  
-                                        action={(e)=> dispatch({type: "NEW_USER_EMAIL", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_EMAIL", payload: e.target.value});
+                                            clearError(1, 'email')
+                                        }}
                                         error={errors.card1.email ? errors.card1.email : false}
                                     />
                                     <Input 
@@ -179,7 +192,10 @@ export default function Signup() {
                                         id="sign-up-password" 
                                         placeholder="Password" 
                                         autoComplete="new-password" 
-                                        action={(e)=> dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value});
+                                            clearError(1, 'password');
+                                        }}
                                         error={errors.card1.password ? errors.card1.password : false}
                                     />
                                 </InputCard>
@@ -195,7 +211,10 @@ export default function Signup() {
                                         name="cc-name" 
                                         id="sign-up-cc-name" 
                                         placeholder="Name on credit card" 
-                                        action={(e)=> dispatch({type: "NEW_USER_CC_NAME", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_CC_NAME", payload: e.target.value});
+                                            clearError(2, 'ccName');
+                                        }}
                                         error={errors.card2.ccName ? errors.card2.ccName : false}
                                     />
                                     <Input 
@@ -204,7 +223,10 @@ export default function Signup() {
                                         id="sign-up-cc-number" 
                                         minLength="16" maxLength="16" 
                                         placeholder="0000-0000-0000-0000" 
-                                        action={(e)=> dispatch({type: "NEW_USER_CC_NUMBER", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_CC_NUMBER", payload: e.target.value});
+                                            clearError(2, 'cc');
+                                        }}
                                         error={errors.card2.cc ? errors.card2.cc : false}
                                     />
                                     <Input 
@@ -214,7 +236,10 @@ export default function Signup() {
                                         minLength="7" 
                                         maxLength="7" 
                                         placeholder="mm/yyyy" 
-                                        action={(e)=> dispatch({type: "NEW_USER_CC_EXPIRY", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_CC_EXPIRY", payload: e.target.value});
+                                            clearError(2, 'expiry');
+                                        }}
                                         error={errors.card2.expiry ? errors.card2.expiry : false}
                                     />
                                     <Input 
@@ -224,7 +249,10 @@ export default function Signup() {
                                         minLength="3" 
                                         maxLength="3" 
                                         placeholder="000" 
-                                        action={(e)=> dispatch({type: "NEW_USER_CC_SECCODE", payload: e.target.value})}
+                                        action={(e)=> {
+                                            dispatch({type: "NEW_USER_CC_SECCODE", payload: e.target.value});
+                                            clearError(2, 'securityCode');
+                                        }}
                                         error={errors.card2.securityCode ? errors.card2.securityCode : false}
                                     />
                                 </InputCard>
