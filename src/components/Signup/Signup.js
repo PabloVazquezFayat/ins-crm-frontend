@@ -1,5 +1,6 @@
 import './Signup.css'
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import { useSpring, animated } from 'react-spring'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -8,7 +9,11 @@ import Input from '../Input/Input'
 import InputReview from '../InputReview/InputReview'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
-export default function Signup() {   
+import { fetchData }  from '../../utility/fetch-data/fetch-data';
+
+export default function Signup() { 
+    
+    const history = useHistory();
 
     const [cardOffset, setCardOffset] = useState("0px");
     const [cardOpacity, setCardOpacity] = useState({card1: 1, card2: 0, card3: 0});
@@ -23,8 +28,9 @@ export default function Signup() {
     })
 
     //animates the deck on interactions
+    
     const cardDeck = useSpring({transform: `translate(0px, ${cardOffset})`});
-
+    
     //toggles the opacity of the each card based on interactions 
     const toggleCard1 = useSpring({opacity: cardOpacity.card1});
     const toggleCard2 = useSpring({opacity: cardOpacity.card2});
@@ -116,7 +122,26 @@ export default function Signup() {
 
     }
     
-    const submit = ()=> console.log('Submit');
+    const submit =  async ()=> {
+
+        const accountData = {
+            email: email,
+            password: password,
+            name: `${firstName} ${lastName}`,
+            cc: {
+                name: ccName,
+                number: cc,
+                expires: expiry,
+                securityCode: securityCode
+            }
+        };
+
+        const newAccountData = await fetchData.account.create(accountData);
+
+        dispatch({type: 'NEW_ACCOUNT', payload: newAccountData});
+
+        history.push('/dash');
+    };
 
     return (
         <div className="sign-up-page">

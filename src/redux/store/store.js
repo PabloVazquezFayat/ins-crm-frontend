@@ -1,13 +1,10 @@
 import { createStore, combineReducers } from 'redux';
-import { createData, readData, updateData, deleteData, } from '../reducers/data-reducers';
+import { accountActions } from '../reducers/account-reducers';
 import { newUserInput } from '../reducers/new-user-reducers';
 
 const reducers = combineReducers({
-    createData,
-    readData,
-    updateData,
-    deleteData,
     newUserInput,
+    accountActions,
 });
 
 const store = createStore(reducers);

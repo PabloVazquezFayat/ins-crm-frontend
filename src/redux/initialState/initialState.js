@@ -10,8 +10,11 @@ export const initialState = {
         expiry: '',
         securityCode: 0,
     },
+    accountData: {},
+    assetData: {},
     clientData: {},
     claim: {},
     policy: {},
-    note: {}
+    note: {},
+    userData: {},
 }
