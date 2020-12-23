@@ -1,4 +1,3 @@
-import { initialState } from '../initialState/initialState';
 import { actions } from '../actions/actions';
 
 const {
@@ -11,6 +10,19 @@ const {
     NEW_USER_CC_EXPIRY,
     NEW_USER_CC_SECCODE
 } = actions.newUserActions;
+
+const initialState = {
+    newUserData: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        ccName: '',
+        cc: 0,
+        expiry: '',
+        securityCode: 0,
+    }
+}
 
 function newUserInput(state = initialState, action){
 

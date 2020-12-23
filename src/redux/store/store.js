@@ -4,9 +4,9 @@ import { accountActions } from '../reducers/account-reducers';
 import { userActions } from '../reducers/user-reducers';
 
 const reducers = combineReducers({
-    newUserInput,
     accountActions,
-    userActions,
+    newUserInput,
+    userActions
 });
 
 const store = createStore(reducers);

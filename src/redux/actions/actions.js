@@ -10,9 +10,7 @@ export const actions = {
         NEW_USER_CC_SECCODE: 'NEW_USER_CC_SECCODE'
     },
     accountActions: {
-        CREATE_ACCOUNT: 'CREATE_ACCOUNT',
-        READ_ACCOUNT: 'READ_ACCOUNT',
-        SET_ACOUNT: 'SET_ACCOUNT',
+        SET_ACCOUNT: 'SET_ACCOUNT',
     },
     userActions: {
         CREATE_USER: 'CREATE_USER',

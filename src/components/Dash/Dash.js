@@ -5,23 +5,13 @@ import { fetchData } from '../../utility/fetch-data/fetch-data'
 export default function Dash() {
 
     const dispatch = useDispatch();
-    const {userActions: {userData}} = useSelector(state => state);
+    const { userData } = useSelector(state => state.accountActions);
 
     const getData = async ()=> {
-
-        const reqData = {
-            account_id: userData.account,
-            user_id: userData._id
-        };
-
-        const { data } = await fetchData.account.read(reqData);
-
-        console.log(data);
-
-        if(data){
-            dispatch({type: 'READ_ACCOUNT', payload: data});
+        if(Object.keys(userData).length === 0){
+            const { data } = await fetchData.account.read();
+            dispatch({type: 'SET_ACCOUNT', payload: data.owner});
         }
-
     }
 
     getData();
@@ -29,6 +19,7 @@ export default function Dash() {
     return (
         <div>
             <h1>DASHBOARD</h1>
+            <h3>{userData.name}</h3>
         </div>
     )
 }

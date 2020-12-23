@@ -13,10 +13,9 @@ export const fetchData = {
                 return error;
             }
         },
-        read: async (data)=> {
+        read: async ()=> {
             try{
-                const { account_id, user_id } = data;
-                const accountData = await axios.get(endpoints.account, {params: {account_id: account_id, user_id: user_id}});
+                const accountData = await axios.get(endpoints.account);
                 if(accountData){
                     return accountData;
                 }

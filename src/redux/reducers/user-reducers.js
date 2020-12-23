@@ -1,7 +1,10 @@
-import { initialState } from '../initialState/initialState';
 import { actions } from '../actions/actions';
 
 const { CREATE_USER, READ_USER, UPDATE_USER, DELETE_USER, AUTH_USER } = actions.userActions;
+
+const initialState = {
+    userData: {}
+}
 
 function userActions(state = initialState, action){
 
