@@ -1,10 +1,4 @@
 export const actions = {
-    dataActions: {
-        GET: 'GET',
-        POST: 'POST',
-        PUT: 'PUT',
-        DELETE: 'DELETE'
-    },
     newUserActions: {
         NEW_USER_FIRST_NAME: 'NEW_USER_FIRST_NAME',
         NEW_USER_LAST_NAME: 'NEW_USER_LAST_NAME',
@@ -18,5 +12,13 @@ export const actions = {
     accountActions: {
         CREATE_ACCOUNT: 'CREATE_ACCOUNT',
         READ_ACCOUNT: 'READ_ACCOUNT',
+        SET_ACOUNT: 'SET_ACCOUNT',
+    },
+    userActions: {
+        CREATE_USER: 'CREATE_USER',
+        READ_USER: 'READ_USER',
+        UPDATE_USER: 'UPDATE_USER',
+        DELETE_USER: 'DELETE_USER',
+        AUTH_USER: 'AUTH_USER',
     }
 }

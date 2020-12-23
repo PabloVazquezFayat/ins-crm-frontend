@@ -1,7 +1,7 @@
 import { initialState } from '../initialState/initialState';
 import { actions } from '../actions/actions';
 
-const { CREATE_ACCOUNT, READ_ACCOUNT } = actions.dataActions;
+const { CREATE_ACCOUNT, READ_ACCOUNT, SET_ACCOUNT } = actions.userActions;
 
 function accountActions(state = initialState, action){
 
@@ -12,6 +12,9 @@ function accountActions(state = initialState, action){
             newState.accountData = action.payload;
             return newState;
         case READ_ACCOUNT : 
+            newState.accountData = action.payload;
+            return newState;
+        case SET_ACCOUNT : 
             newState.accountData = action.payload;
             return newState;
         default: 

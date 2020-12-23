@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
-import Auth from './utility/Auth/Auth';
+import { Auth } from './utility/Auth/Auth';
 
 import Home from './components/Home/Home';
 import Signup from './components/Signup/Signup';

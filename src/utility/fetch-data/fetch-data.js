@@ -4,23 +4,25 @@ import  { endpoints } from '../API/endpoints'
 export const fetchData = {
     account:{
         create: async (accountData)=> {
-
             try{
-
-                const url = `${endpoints.domain}${endpoints.account}`;
-                const newAccount = await axios.post(url, accountData);
-
+                const newAccount = await axios.post(endpoints.account, accountData);
                 if(newAccount){
                     return newAccount;
                 }
-
             }catch(error){
                 return error;
             }
-
         },
-        read: ()=> {
-
+        read: async (data)=> {
+            try{
+                const { account_id, user_id } = data;
+                const accountData = await axios.get(endpoints.account, {params: {account_id: account_id, user_id: user_id}});
+                if(accountData){
+                    return accountData;
+                }
+            }catch(error){
+                return error;
+            }
         },
         update: ()=> {
 

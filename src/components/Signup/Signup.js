@@ -1,6 +1,6 @@
 import './Signup.css'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 import { useSpring, animated } from 'react-spring'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -9,7 +9,8 @@ import Input from '../Input/Input'
 import InputReview from '../InputReview/InputReview'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
-import { fetchData }  from '../../utility/fetch-data/fetch-data';
+import { fetchData }  from '../../utility/fetch-data/fetch-data'
+import { Auth } from '../../utility/Auth/Auth'
 
 export default function Signup() { 
     
@@ -136,11 +137,14 @@ export default function Signup() {
             }
         };
 
-        const newAccountData = await fetchData.account.create(accountData);
+        const {data} = await fetchData.account.create(accountData);
 
-        dispatch({type: 'NEW_ACCOUNT', payload: newAccountData});
-
-        history.push('/dash');
+        if(data){
+            dispatch({type: 'SET_ACCOUNT', payload: data.user});
+            dispatch({type: 'AUTH_USER', payload: data.user});
+            Auth();
+            history.push('/dash');
+        }
     };
 
     return (
