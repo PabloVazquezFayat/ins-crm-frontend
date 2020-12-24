@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-do
 import { Auth } from './utility/Auth/Auth';
 
 import Home from './components/Home/Home';
+import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
 import Rescue from './components/Rescue/Rescue';
 import Dash from './components/Dash/Dash';
@@ -28,6 +29,11 @@ function App() {
                 {/* HOME PAGE */}
                 <Route exact path='/' render={()=> 
                   Auth() === true ? <Home/> : <Redirect to={'/dash'}/>//false
+                } />
+
+                {/* SIGNIN PAGE */}
+                <Route exact path='/signin' render={()=> 
+                  Auth() === true ? <Signin/> : <Redirect to={'/dash'}/>//false
                 } />
 
                 {/* HOME PAGE */}

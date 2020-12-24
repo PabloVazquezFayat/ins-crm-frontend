@@ -137,7 +137,7 @@ export default function Signup() {
             }
         };
 
-        const {data} = await fetchData.account.create(accountData);
+        const { data } = await fetchData.account.create(accountData);
 
         if(data){
             dispatch({type: 'SET_ACCOUNT', payload: data.user});
