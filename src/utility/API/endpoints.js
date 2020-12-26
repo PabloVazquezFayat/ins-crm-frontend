@@ -7,4 +7,5 @@ export const endpoints = {
     note: '/note',
     policy: '/policy',
     user: '/user',
+    login: '/user/login'
 }

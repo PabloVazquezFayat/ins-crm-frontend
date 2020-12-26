@@ -113,8 +113,15 @@ export const fetchData = {
         delete: ()=> {
 
         },
-        login: ()=> {
-
+        login: async (credentials)=> {
+            try{
+                const { data: { user } } = await axios.post(endpoints.login, credentials);
+                if(user){
+                    return user;
+                }
+            }catch(error){
+                return error;
+            }
         }
     }
 }
