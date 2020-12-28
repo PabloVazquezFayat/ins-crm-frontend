@@ -9,7 +9,7 @@ import Input from '../Input/Input'
 import InputReview from '../InputReview/InputReview'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
-import { fetchData }  from '../../utility/fetch-data/fetch-data'
+import { fetchData }  from '../../utility/API/fetch-data'
 import { Auth } from '../../utility/Auth/Auth'
 
 export default function Signup() { 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchData } from '../../utility/fetch-data/fetch-data'
+import { fetchData } from '../../utility/API/fetch-data'
 
 export default function Dash() {
 

@@ -2,7 +2,7 @@ import './Signin.css'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { fetchData } from '../../utility/fetch-data/fetch-data'
+import { fetchData } from '../../utility/API/fetch-data'
 
 import InputCard from '../InputCard/InputCard'
 import Input from '../Input/Input';
@@ -14,13 +14,19 @@ export default function Home() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const errorHandler = (error) =>{
+        console.log(error);
+    }
+
     const signin = async  (e)=> {
 
-        const user = await fetchData.user.login({email: email, password: password});
+        const res = await fetchData.user.login({email: email, password: password});
 
-        if(user){
-            dispatch({type: 'AUTH_USER', payload: user})
+        if(res.auth === undefined){
+            dispatch({type: 'AUTH_USER', payload: res})
             history.push('/dash');
+        }else{
+            errorHandler(res);
         }
     }
 

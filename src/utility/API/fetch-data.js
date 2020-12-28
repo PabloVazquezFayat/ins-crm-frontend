@@ -1,5 +1,5 @@
 import axios from 'axios';
-import  { endpoints } from '../API/endpoints'
+import  { endpoints } from './endpoints'
 
 export const fetchData = {
     account:{
@@ -120,7 +120,7 @@ export const fetchData = {
                     return user;
                 }
             }catch(error){
-                return error;
+                return error.response.data;
             }
         }
     }
