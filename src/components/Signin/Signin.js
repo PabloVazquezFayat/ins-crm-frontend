@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux'
 import { fetchData } from '../../utility/API/fetch-data'
 
 import InputCard from '../InputCard/InputCard'
-import Input from '../Input/Input';
+import Input from '../Input/Input'
+import InputError from '../InputError/InputError'
 
 export default function Home() {
 
@@ -13,10 +14,7 @@ export default function Home() {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const errorHandler = (error) =>{
-        console.log(error);
-    }
+    const [error, setError] = useState('');
 
     const signin = async  (e)=> {
 
@@ -26,16 +24,31 @@ export default function Home() {
             dispatch({type: 'AUTH_USER', payload: res})
             history.push('/dash');
         }else{
-            errorHandler(res);
+            setError(res);
         }
     }
 
     return (
-        <div className="home-page">
+        <div className="sigin-page">
+            <InputError error={error}/>
             <div className="signup-login-container">
                 <InputCard header="login" button="login" action={signin}>
-                    <Input type="email" name="email" id="email-input" placeholder="Email" action={(e)=> setEmail(e.target.value)}/>
-                    <Input type="password" name="password" id="password-input" placeholder="Password" action={(e)=> setPassword(e.target.value)}/>
+                    <Input 
+                        type="email" 
+                        name="email" 
+                        id="email-input" 
+                        placeholder="Email" 
+                        action={(e)=> setEmail(e.target.value)}
+                        error={error ? error : null}
+                    />
+                    <Input 
+                        type="password" 
+                        name="password" 
+                        id="password-input" 
+                        placeholder="Password" 
+                        action={(e)=> setPassword(e.target.value)}
+                        error={error ? error : null}
+                    />
                     <div className="sign-up">
                         <p>Don't have an account?</p> 
                         <Link to="/signup" className="sing-up-link">Create account</Link>

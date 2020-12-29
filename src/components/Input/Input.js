@@ -5,10 +5,6 @@ export default function Input(props) {
 
     const { type, name, id, placeholder, minLength, maxLength, autoComplete, action, error } = props;
 
-    if(error){
-        console.log(error);
-    }
-
     return (
         <div className="input-wrapper" >
             <input 

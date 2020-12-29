@@ -1,5 +1,5 @@
 .input-wrapper{
-    height: 38px;
+    height: auto;
     margin: 5px 15px;
     display: flex;
     flex-direction: column;

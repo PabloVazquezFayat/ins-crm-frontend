@@ -29,7 +29,6 @@ export default function Signup() {
     })
 
     //animates the deck on interactions
-    
     const cardDeck = useSpring({transform: `translate(0px, ${cardOffset})`});
     
     //toggles the opacity of the each card based on interactions 
