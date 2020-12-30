@@ -20,7 +20,7 @@ export default function InputError(props) {
         if(error){
             setOpacity(1);
         }
-    }, [setOpacity, error, setError]);
+    }, [setOpacity, error]);
 
     return (
         <animated.div style={toggleError} className="input-error-container drop-shadow">

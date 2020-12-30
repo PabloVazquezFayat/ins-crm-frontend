@@ -61,10 +61,12 @@ export default function Signup() {
     const [errors, setErrors] = useState({card1: {}, card2: {}});
     
     const validateCard = (cardNumber, cb, onError)=> {
+        //working on custom errors for sign up forms 
+        console.log('clickity');
 
         if(cardNumber === 1 && firstName && lastName && email && password){
             cb();
-        }else if (cardNumber === 1 && (!firstName || !lastName || email || password)){
+        }else if (cardNumber === 1 && (!firstName || !lastName || !email || !password)){
             onError();
         }
 
@@ -77,6 +79,7 @@ export default function Signup() {
     }
 
     const validationErrors = (cardNumber)=> {
+        console.log('click to validate')
 
         const card1 = {firstName, lastName, email, password};
         const card2 = {ccName, cc, expiry, securityCode};
@@ -97,6 +100,9 @@ export default function Signup() {
         if(cardNumber === 1){
             const cardErrors = createErrors(card1);
             const currentErrors = {...errors};
+
+            console.log(currentErrors);
+
             currentErrors.card1 = cardErrors;
             setErrors(currentErrors);
         }else if(cardNumber === 2){
