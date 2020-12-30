@@ -16,21 +16,25 @@ export default function Home() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const signin = async  (e)=> {
+    const signin = async  ()=> {
+
+        if(!email || !password){
+            return setError('please enter your email and password');;
+        }
 
         const res = await fetchData.user.login({email: email, password: password});
 
         if(res.auth === undefined){
-            dispatch({type: 'AUTH_USER', payload: res})
+            dispatch({type: 'AUTH_USER', payload: res});
             history.push('/dash');
         }else{
-            setError(res);
+            setError(res.message);
         }
     }
 
     return (
         <div className="sigin-page">
-            <InputError error={error}/>
+            <InputError error={error} setError={setError}/>
             <div className="signup-login-container">
                 <InputCard header="login" button="login" action={signin}>
                     <Input 

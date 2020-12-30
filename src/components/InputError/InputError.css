@@ -13,6 +13,10 @@
     font-size: 14px;
 }
 
+.input-error-container p::first-letter{
+    text-transform: capitalize;
+}
+
 .input-close-btn{
     color: #ffffff;
     cursor: pointer;
