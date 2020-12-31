@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import InputCard from '../InputCard/InputCard'
 import Input from '../Input/Input'
 import InputReview from '../InputReview/InputReview'
+import InputError from '../InputError/InputError'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
 import { fetchData }  from '../../utility/API/fetch-data'
@@ -59,14 +60,14 @@ export default function Signup() {
             } = useSelector(state => state);
 
     const [errors, setErrors] = useState({card1: {}, card2: {}});
-    
-    const validateCard = (cardNumber, cb, onError)=> {
-        //working on custom errors for sign up forms 
-        console.log('clickity');
 
-        if(cardNumber === 1 && firstName && lastName && email && password){
+    const validateCard = (cardNumber, cb, onError)=> {
+
+        validateEmail()
+
+        if(cardNumber === 1 && firstName && lastName && validateEmail() && password){
             cb();
-        }else if (cardNumber === 1 && (!firstName || !lastName || !email || !password)){
+        }else if(cardNumber === 1 && (!firstName || !lastName || !email || !password)){
             onError();
         }
 
@@ -76,10 +77,22 @@ export default function Signup() {
             onError();
         }
 
+        function validateEmail(){
+            const regex = /(\w+?@\w+?\x2E.+)/;
+            const validEmail = email.match(regex);
+
+            console.log(validEmail);
+
+            if(validEmail === null){
+                return false;
+            }else if(validEmail[0] === email){
+                return true;
+            }
+        }
+
     }
 
     const validationErrors = (cardNumber)=> {
-        console.log('click to validate')
 
         const card1 = {firstName, lastName, email, password};
         const card2 = {ccName, cc, expiry, securityCode};
@@ -100,9 +113,6 @@ export default function Signup() {
         if(cardNumber === 1){
             const cardErrors = createErrors(card1);
             const currentErrors = {...errors};
-
-            console.log(currentErrors);
-
             currentErrors.card1 = cardErrors;
             setErrors(currentErrors);
         }else if(cardNumber === 2){
@@ -155,6 +165,7 @@ export default function Signup() {
     return (
         <div className="sign-up-page">
             <div className="sign-up-container">
+                <InputError  />
                 <div className="sign-up-wrapper">
 
                     <BreadCrumb 

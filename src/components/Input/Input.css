@@ -14,7 +14,13 @@
     font-weight: 400;
 }
 
-.input-error{
+.input-error-message{
+    font-weight: 600;
+    font-size: 12px;
+    color:rgb(233, 37, 47)
+}
+
+.input-error, .input:invalid{
     background: transparent;
     padding: 10px;
     border: none;

@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Input(props) {
 
-    const { type, name, id, placeholder, minLength, maxLength, autoComplete, action, error } = props;
+    const { type, name, id, placeholder, minLength, maxLength, autoComplete, action, error, errorMessage } = props;
 
     return (
         <div className="input-wrapper" >
@@ -18,6 +18,7 @@ export default function Input(props) {
                 autoComplete={ autoComplete ? autoComplete : "off"}
                 onChange={action}
             />
+            { errorMessage ? <p className="input-error-message">{errorMessage}</p> : null }
         </div>
     )
 }
