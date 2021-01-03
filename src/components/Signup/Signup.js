@@ -60,14 +60,56 @@ export default function Signup() {
             } = useSelector(state => state);
 
     const [errors, setErrors] = useState({card1: {}, card2: {}});
+    const [errorMessages, setErrorMessages] = useState([]);
+
+    
+    const validateCard1 = (cb, onError)=> {
+
+        /* functions
+            1 - validate firstName
+            2 - validate lastName
+            3 - validate email
+            4 - validate password
+            
+            if all pass then go to (next card) else (show errors)
+
+            // Passwords must be 5 characters or more. Good passwords are hard to guess and use uncommon words, numbers, symbols, and uppercase letters.
+        */
+
+        const card1ErrorMessages = [];
+
+        const validateFirstName = ()=> firstName ? true : false;
+        const validateLastName = ()=> lastName ? true : false;
+        const validateEmail = ()=> email.match(/(\w+?@\w+?\x2E.+)/) ? true : false;
+        const validatePassword = ()=> password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$.!%*#?&])[A-Za-z\d@$.!%*#?&]{5,}$/) ? true : false;
+
+        if(validateFirstName() === false){
+            card1ErrorMessages.push('Invalid fist name');
+        }else if(validateLastName() === false){
+            card1ErrorMessages.push('Invalid last name');
+        }else if(validateEmail() === false){
+            card1ErrorMessages.push('Invalid email address');
+        }else if(validatePassword() === false){
+            card1ErrorMessages.push('Invalid password');
+        }
+
+        if(card1ErrorMessages.length > 0){
+            setErrorMessages(card1ErrorMessages);
+            onError();
+        }else{
+            cb();
+        }
+
+    }
+
 
     const validateCard = (cardNumber, cb, onError)=> {
 
-        validateEmail()
-
-        if(cardNumber === 1 && firstName && lastName && validateEmail() && password){
+        if(cardNumber === 1 && firstName && lastName && validateEmail() === true && validatePassword() === true){
+            console.log('pickle 1');
             cb();
-        }else if(cardNumber === 1 && (!firstName || !lastName || !email || !password)){
+        }else if(cardNumber === 1 && (!firstName || !lastName || validateEmail() === false || validatePassword() === false)){
+            console.log('pickle 2');
             onError();
         }
 
@@ -81,13 +123,34 @@ export default function Signup() {
             const regex = /(\w+?@\w+?\x2E.+)/;
             const validEmail = email.match(regex);
 
-            console.log(validEmail);
-
             if(validEmail === null){
                 return false;
             }else if(validEmail[0] === email){
                 return true;
             }
+        }
+
+        function validatePassword(){
+            const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$.!%*#?&])[A-Za-z\d@$.!%*#?&]{5,}$/;
+            const validPassword = password.match(regex);
+
+            if(validPassword === null){
+                return false;
+            }else if(validPassword[0] === password){
+                return true;
+            }
+        }
+
+        function validateCardNumber(){
+            //code...
+        }
+
+        function validateCardExpiry(){
+            //code...
+        }
+
+        function validateSecCode(){
+            //code...
         }
 
     }
@@ -122,6 +185,10 @@ export default function Signup() {
             setErrors(currentErrors);
         }
 
+    }
+
+    const createErrorMessages = ()=> {
+        return errorMessages.map((message, i)=>  <InputError key={i} error={message}/>)
     }
 
     const clearError = (cardNumber, prop)=> {
@@ -165,7 +232,7 @@ export default function Signup() {
     return (
         <div className="sign-up-page">
             <div className="sign-up-container">
-                <InputError  />
+                {errors ? createErrorMessages() : null}
                 <div className="sign-up-wrapper">
 
                     <BreadCrumb 
@@ -195,7 +262,7 @@ export default function Signup() {
                             <animated.form style={toggleCard1}>
                                 <InputCard header="account details" button="next" action={(e)=> {
                                     e.preventDefault();
-                                    validateCard(1, ()=> gotToCard(2, '-320px'), ()=> validationErrors(1));
+                                    validateCard1(()=> gotToCard(2, '-320px'), ()=> validationErrors(1));
                                 }}>
                                     <Input 
                                         type="text" 
