@@ -3,7 +3,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     overflow: hidden;
 }
@@ -21,8 +21,9 @@
     /* background: blue; */
     width: 336px;
     height: 240px;
-    margin: 20px 0px 0px 0px;
+    position: absolute;
     display: flex;
+    top: 55px;
     flex-direction: column-reverse;
 }
 

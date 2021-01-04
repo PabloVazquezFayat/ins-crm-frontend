@@ -1,14 +1,14 @@
 import './InputError.css'
 import React, { useState, useEffect } from 'react'
 import { useSpring, animated } from 'react-spring'
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@material-ui/icons/Close'
 
 export default function InputError(props) {
 
     const { error, setError } = props;
     const [opacity, setOpacity] = useState(0);
     const [display, setDisplay] = useState('none');
-    const toggleError = useSpring({opacity: opacity, display: display});
+    const toggleError = useSpring({opacity: opacity, display: display});;
 
     const clearErrors = ()=>{
         setOpacity(0);

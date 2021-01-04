@@ -1,5 +1,5 @@
 import './Signup.css'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSpring, animated } from 'react-spring'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,6 +12,7 @@ import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
 import { fetchData }  from '../../utility/API/fetch-data'
 import { Auth } from '../../utility/Auth/Auth'
+import { setEmitFlags } from 'typescript'
 
 export default function Signup() { 
     
@@ -61,102 +62,44 @@ export default function Signup() {
 
     const [errors, setErrors] = useState({card1: {}, card2: {}});
     const [errorMessages, setErrorMessages] = useState([]);
-
     
     const validateCard1 = (cb, onError)=> {
 
-        /* functions
-            1 - validate firstName
-            2 - validate lastName
-            3 - validate email
-            4 - validate password
-            
-            if all pass then go to (next card) else (show errors)
+        const errorMessagesCard1 = [];
 
-            // Passwords must be 5 characters or more. Good passwords are hard to guess and use uncommon words, numbers, symbols, and uppercase letters.
-        */
-
-        const card1ErrorMessages = [];
-
-        const validateFirstName = ()=> firstName ? true : false;
-        const validateLastName = ()=> lastName ? true : false;
+        const validateFirstName = ()=> firstName.length === 0 ? false : true;
+        const validateLastName = ()=> lastName.length === 0 ? false : true;
         const validateEmail = ()=> email.match(/(\w+?@\w+?\x2E.+)/) ? true : false;
         const validatePassword = ()=> password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$.!%*#?&])[A-Za-z\d@$.!%*#?&]{5,}$/) ? true : false;
 
+        console.log(validateFirstName(), validateLastName());
+
         if(validateFirstName() === false){
-            card1ErrorMessages.push('Invalid fist name');
+            errorMessagesCard1.push('Invalid fist name');
         }
 
         if(validateLastName() === false){
-            card1ErrorMessages.push('Invalid last name');
+            errorMessagesCard1.push('Invalid last name');
         }
 
         if(validateEmail() === false){
-            card1ErrorMessages.push('Invalid email address');
+            errorMessagesCard1.push('Invalid email address');
         }
 
         if(validatePassword() === false){
-            card1ErrorMessages.push('Invalid password');
+            errorMessagesCard1.push('Invalid password');
         }
 
-        if(card1ErrorMessages.length > 0){
-            setErrorMessages(card1ErrorMessages);
+        if(errorMessagesCard1.length > 0){
             onError();
+            setErrorMessages(errorMessagesCard1);
         }else{
             cb();
         }
 
     }
 
-    const validateCard = (cardNumber, cb, onError)=> {
-
-        if(cardNumber === 1 && firstName && lastName && validateEmail() === true && validatePassword() === true){
-            console.log('pickle 1');
-            cb();
-        }else if(cardNumber === 1 && (!firstName || !lastName || validateEmail() === false || validatePassword() === false)){
-            console.log('pickle 2');
-            onError();
-        }
-
-        if(cardNumber === 2 && ccName && cc && expiry && securityCode){
-            cb();
-        }else if(cardNumber === 2 && (!ccName || !cc || !expiry || !securityCode)){
-            onError();
-        }
-
-        function validateEmail(){
-            const regex = /(\w+?@\w+?\x2E.+)/;
-            const validEmail = email.match(regex);
-
-            if(validEmail === null){
-                return false;
-            }else if(validEmail[0] === email){
-                return true;
-            }
-        }
-
-        function validatePassword(){
-            const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$.!%*#?&])[A-Za-z\d@$.!%*#?&]{5,}$/;
-            const validPassword = password.match(regex);
-
-            if(validPassword === null){
-                return false;
-            }else if(validPassword[0] === password){
-                return true;
-            }
-        }
-
-        function validateCardNumber(){
-            //code...
-        }
-
-        function validateCardExpiry(){
-            //code...
-        }
-
-        function validateSecCode(){
-            //code...
-        }
+    const validateCard2 = (cb, onError)=> {
 
     }
 
@@ -188,11 +131,13 @@ export default function Signup() {
             const currentErrors = {...errors};
             currentErrors.card2 = cardErrors;
             setErrors(currentErrors);
+
         }
 
     }
 
     const createErrorMessages = ()=> {
+        console.log(errorMessages)
         return errorMessages.map((message, i)=>  <InputError key={i} error={message} setError={()=> console.log('clear error')}/>)
     }
 
@@ -238,7 +183,7 @@ export default function Signup() {
         <div className="sign-up-page">
 
             <div className="sign-up-errors-container">
-                {errors ? createErrorMessages() : null}
+                {createErrorMessages()}
             </div>
 
             <div className="sign-up-container">
@@ -281,7 +226,7 @@ export default function Signup() {
                                         placeholder="First name" 
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value});
-                                            clearError(1, 'firstName');
+                                            //clearError(1, 'firstName');
                                         }}
                                         error={errors.card1.firstName ? errors.card1.firstName : false}
                                     />
@@ -292,7 +237,7 @@ export default function Signup() {
                                         placeholder="Last name" 
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value});
-                                            clearError(1, 'lastName');
+                                            //clearError(1, 'lastName');
                                         }}
                                         error={errors.card1.lastName ? errors.card1.lastName : false}
                                     />
@@ -304,7 +249,7 @@ export default function Signup() {
                                         autoComplete="off"  
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_EMAIL", payload: e.target.value});
-                                            clearError(1, 'email')
+                                            //clearError(1, 'email')
                                         }}
                                         error={errors.card1.email ? errors.card1.email : false}
                                     />
@@ -316,9 +261,12 @@ export default function Signup() {
                                         autoComplete="new-password" 
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value});
-                                            clearError(1, 'password');
+                                            //clearError(1, 'password');
                                         }}
                                         error={errors.card1.password ? errors.card1.password : false}
+                                        useHint={true}
+                                        hintText={`Passwords must be 5 characters or more,
+                                         and contain numbers, symbols, and uppercase letters.`}
                                     />
                                 </InputCard>
                             </animated.form>
@@ -326,7 +274,7 @@ export default function Signup() {
                             <animated.form style={toggleCard2}>
                                 <InputCard header="payment method" button="next" action={(e)=> {
                                     e.preventDefault();
-                                    validateCard(2, ()=> gotToCard(3, '-640px'), ()=> validationErrors(2));
+                                    validateCard2(()=> gotToCard(3, '-640px'), ()=> validationErrors(2));
                                 }}>
                                     <Input 
                                         type="text" 

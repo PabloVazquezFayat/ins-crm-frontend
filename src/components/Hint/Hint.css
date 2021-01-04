@@ -1,0 +1,40 @@
+.hint{
+    background: rgb(94, 230, 94);
+    width: 250px;
+    height: auto;
+    position: absolute;
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 999;
+    left: 100%;
+}
+
+.hint p{
+    padding: 0px;
+    margin: 0px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 16px;
+}
+
+.hint-arrow{
+    background: rgb(94, 230, 94);
+    width: 15px;
+    height: 15px;
+    transform: rotate(45deg);
+    position: absolute;
+    margin: 10px 0px 0px -14px;
+    z-index: -1;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 912px) {
+    .hint{
+        top: 22%;
+        left: 25%;
+    }
+    
+    .hint-arrow{
+        margin: -14px 0px 0px 10px;
+    }
+}
