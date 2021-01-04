@@ -7,17 +7,20 @@ export default function InputError(props) {
 
     const { error, setError } = props;
     const [opacity, setOpacity] = useState(0);
-    const toggleError = useSpring({opacity: opacity});
+    const [display, setDisplay] = useState('none');
+    const toggleError = useSpring({opacity: opacity, display: display});
 
     const clearErrors = ()=>{
         setOpacity(0);
         setTimeout(()=> {
             setError('');
+            setDisplay('none');
         }, 300) 
     };
 
     useEffect(()=>{
         if(error){
+            setDisplay('flex');
             setOpacity(1);
         }
     }, [setOpacity, error]);

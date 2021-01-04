@@ -85,11 +85,17 @@ export default function Signup() {
 
         if(validateFirstName() === false){
             card1ErrorMessages.push('Invalid fist name');
-        }else if(validateLastName() === false){
+        }
+
+        if(validateLastName() === false){
             card1ErrorMessages.push('Invalid last name');
-        }else if(validateEmail() === false){
+        }
+
+        if(validateEmail() === false){
             card1ErrorMessages.push('Invalid email address');
-        }else if(validatePassword() === false){
+        }
+
+        if(validatePassword() === false){
             card1ErrorMessages.push('Invalid password');
         }
 
@@ -101,7 +107,6 @@ export default function Signup() {
         }
 
     }
-
 
     const validateCard = (cardNumber, cb, onError)=> {
 
@@ -188,7 +193,7 @@ export default function Signup() {
     }
 
     const createErrorMessages = ()=> {
-        return errorMessages.map((message, i)=>  <InputError key={i} error={message}/>)
+        return errorMessages.map((message, i)=>  <InputError key={i} error={message} setError={()=> console.log('clear error')}/>)
     }
 
     const clearError = (cardNumber, prop)=> {
@@ -231,8 +236,13 @@ export default function Signup() {
 
     return (
         <div className="sign-up-page">
-            <div className="sign-up-container">
+
+            <div className="sign-up-errors-container">
                 {errors ? createErrorMessages() : null}
+            </div>
+
+            <div className="sign-up-container">
+
                 <div className="sign-up-wrapper">
 
                     <BreadCrumb 
@@ -393,6 +403,7 @@ export default function Signup() {
                     </animated.div>
 
                 </div>
+
             </div>
         </div>
     )
