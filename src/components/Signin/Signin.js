@@ -14,12 +14,12 @@ export default function Home() {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState([]);
 
     const signin = async  ()=> {
 
         if(!email || !password){
-            return setError('please enter your email and password');;
+            return setError(['please enter your email and password']);;
         }
 
         const res = await fetchData.user.login({email: email, password: password});
@@ -28,13 +28,13 @@ export default function Home() {
             dispatch({type: 'AUTH_USER', payload: res});
             history.push('/dash');
         }else{
-            setError(res.message);
+            setError([res.message]);
         }
     }
 
     return (
         <div className="sigin-page">
-            <InputError error={error} setError={setError}/>
+            <InputError errors={error}/>
             <div className="signup-login-container">
                 <InputCard header="login" button="login" action={signin}>
                     <Input 
@@ -43,7 +43,7 @@ export default function Home() {
                         id="email-input" 
                         placeholder="Email" 
                         action={(e)=> setEmail(e.target.value)}
-                        error={error ? error : null}
+                        error={error[0] ? error[0] : null}
                     />
                     <Input 
                         type="password" 
@@ -51,7 +51,7 @@ export default function Home() {
                         id="password-input" 
                         placeholder="Password" 
                         action={(e)=> setPassword(e.target.value)}
-                        error={error ? error : null}
+                        error={error[0] ? error[0] : null}
                     />
                     <div className="sign-up">
                         <p>Don't have an account?</p> 

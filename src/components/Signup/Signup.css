@@ -24,6 +24,7 @@
     margin: 20px 0px 0px 0px;
     display: flex;
     flex-direction: column-reverse;
+    z-index: 999;
 }
 
 .sign-up-wrapper{

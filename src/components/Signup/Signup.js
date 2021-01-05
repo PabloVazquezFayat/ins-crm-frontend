@@ -92,11 +92,52 @@ export default function Signup() {
             setErrorMessages(errorMessagesCard1.reverse());
         }else{
             cb();
+            setErrorMessages([]);
         }
 
     }
 
     const validateCard2 = (cb, onError)=> {
+
+        const errorMessagesCard2 = [];
+
+        const validateCCname = ()=> ccName.length === 0 ? false : true;
+        const validateCCnumber = ()=> parseInt(cc).toString().length < 16 ? false : true;
+        const validateCCexpiry = ()=> {
+            const expiryDetails = expiry.split('/');
+            if(parseInt(expiryDetails[0]).toString().length < 2){
+                return false;
+            }else if(parseInt(expiryDetails[1]).toString().length < 4){
+                return false;
+            }else{
+                return true;
+            }
+        }
+        const validateCCsecCode = ()=> parseInt(securityCode).toString().length < 3 ? false : true;
+
+        if(validateCCname() === false){
+            errorMessagesCard2.push('Invalid credit card name');
+        }
+
+        if(validateCCnumber() === false){
+            errorMessagesCard2.push('Invalid credit card number');
+        }
+
+        if(validateCCexpiry() === false){
+            errorMessagesCard2.push('Invalid credit card expiration')
+        }
+
+        if(validateCCsecCode() === false){
+            errorMessagesCard2.push('Invalid credit card security code');
+        }
+
+        if(errorMessagesCard2.length > 0){
+            onError();
+            setErrorMessages(errorMessagesCard2.reverse());
+        }else{
+            cb();
+            setErrorMessages([]);
+        }
 
     }
 
@@ -131,12 +172,6 @@ export default function Signup() {
 
         }
 
-    }
-
-    const createErrorMessages = ()=> {
-        return errorMessages.map((message, i)=> {
-            return <InputError key={i} error={message} setError={()=> console.log('clear')}/>
-        });
     }
 
     const clearError = (cardNumber, prop)=> {
@@ -181,7 +216,7 @@ export default function Signup() {
         <div className="sign-up-page">
 
             <div className="sign-up-errors-container">
-                {createErrorMessages()}
+                <InputError errors={errorMessages}/>
             </div>
 
             <div className="sign-up-container">

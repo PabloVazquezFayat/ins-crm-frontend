@@ -1,29 +1,39 @@
 import './InputError.css'
 import React, { useState, useEffect } from 'react'
-import { useSpring, animated } from 'react-spring'
+import { Transition } from 'react-spring/renderprops'
 import CloseIcon from '@material-ui/icons/Close'
 
 export default function InputError(props) {
 
-    const { error, setError } = props;
-    const [visibility, setVisibility] = useState({opacity: 1, display: 'flex'});
-    const toggleError = useSpring({opacity: visibility.opacity, display: visibility.display});
+    const { errors } = props;
 
-    function clearErrors() {
-        setVisibility({opacity: 0, display: 'none'});
-        setTimeout(() => {
-            setError('');
-        }, 300);
+    const [errorFlags, setErrorFlags] = useState([]);
+
+    const clearError = (error)=> {
+        const filtered = errorFlags.filter( errorMessage => {
+            return errorMessage !== error;
+        });
+        setErrorFlags(filtered);
     }
 
-    useEffect(() => {
-        setVisibility({opacity: 1, display: 'flex'});
-    }, [setVisibility])    
+    useEffect(()=> {
+        if(errors.length > 0){
+            setErrorFlags(errors);
+        }else{
+            setErrorFlags([]);
+        }
+    }, [setErrorFlags, errors]);
 
     return (
-        <animated.div style={toggleError} className="input-error-container drop-shadow">
-            <p>{error ? error : 'an error has occured'}</p>
-            <CloseIcon className="input-close-btn" onClick={clearErrors} />
-        </animated.div>
+        <Transition items={errorFlags} key={item => item.key} from={{ opacity: 0 }} enter={{ opacity: 1 }} leave={{ opacity: 0 }} trail={100} >
+            {(item)=> {
+                return (props)=>{
+                    return  <div style={props} className="input-error-container drop-shadow">
+                                <p>{item}</p>
+                                <CloseIcon className="input-close-btn" onClick={ ()=> clearError(item) }/>
+                            </div>
+                }
+            }}
+        </Transition>
     )
 }
