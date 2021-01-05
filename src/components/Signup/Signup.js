@@ -1,5 +1,5 @@
 import './Signup.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSpring, animated } from 'react-spring'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,7 +12,6 @@ import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
 import { fetchData }  from '../../utility/API/fetch-data'
 import { Auth } from '../../utility/Auth/Auth'
-import { setEmitFlags } from 'typescript'
 
 export default function Signup() { 
     
@@ -72,8 +71,6 @@ export default function Signup() {
         const validateEmail = ()=> email.match(/(\w+?@\w+?\x2E.+)/) ? true : false;
         const validatePassword = ()=> password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$.!%*#?&])[A-Za-z\d@$.!%*#?&]{5,}$/) ? true : false;
 
-        console.log(validateFirstName(), validateLastName());
-
         if(validateFirstName() === false){
             errorMessagesCard1.push('Invalid fist name');
         }
@@ -92,7 +89,7 @@ export default function Signup() {
 
         if(errorMessagesCard1.length > 0){
             onError();
-            setErrorMessages(errorMessagesCard1);
+            setErrorMessages(errorMessagesCard1.reverse());
         }else{
             cb();
         }
@@ -137,8 +134,9 @@ export default function Signup() {
     }
 
     const createErrorMessages = ()=> {
-        console.log(errorMessages)
-        return errorMessages.map((message, i)=>  <InputError key={i} error={message} setError={()=> console.log('clear error')}/>)
+        return errorMessages.map((message, i)=> {
+            return <InputError key={i} error={message} setError={()=> console.log('clear')}/>
+        });
     }
 
     const clearError = (cardNumber, prop)=> {
@@ -226,7 +224,7 @@ export default function Signup() {
                                         placeholder="First name" 
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_FIRST_NAME", payload: e.target.value});
-                                            //clearError(1, 'firstName');
+                                            clearError(1, 'firstName');
                                         }}
                                         error={errors.card1.firstName ? errors.card1.firstName : false}
                                     />
@@ -237,7 +235,7 @@ export default function Signup() {
                                         placeholder="Last name" 
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_LAST_NAME", payload: e.target.value});
-                                            //clearError(1, 'lastName');
+                                            clearError(1, 'lastName');
                                         }}
                                         error={errors.card1.lastName ? errors.card1.lastName : false}
                                     />
@@ -249,7 +247,7 @@ export default function Signup() {
                                         autoComplete="off"  
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_EMAIL", payload: e.target.value});
-                                            //clearError(1, 'email')
+                                            clearError(1, 'email')
                                         }}
                                         error={errors.card1.email ? errors.card1.email : false}
                                     />
@@ -261,7 +259,7 @@ export default function Signup() {
                                         autoComplete="new-password" 
                                         action={(e)=> {
                                             dispatch({type: "NEW_USER_PASSWORD", payload: e.target.value});
-                                            //clearError(1, 'password');
+                                            clearError(1, 'password');
                                         }}
                                         error={errors.card1.password ? errors.card1.password : false}
                                         useHint={true}

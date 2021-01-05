@@ -6,24 +6,19 @@ import CloseIcon from '@material-ui/icons/Close'
 export default function InputError(props) {
 
     const { error, setError } = props;
-    const [opacity, setOpacity] = useState(0);
-    const [display, setDisplay] = useState('none');
-    const toggleError = useSpring({opacity: opacity, display: display});;
+    const [visibility, setVisibility] = useState({opacity: 1, display: 'flex'});
+    const toggleError = useSpring({opacity: visibility.opacity, display: visibility.display});
 
-    const clearErrors = ()=>{
-        setOpacity(0);
-        setTimeout(()=> {
+    function clearErrors() {
+        setVisibility({opacity: 0, display: 'none'});
+        setTimeout(() => {
             setError('');
-            setDisplay('none');
-        }, 300) 
-    };
+        }, 300);
+    }
 
-    useEffect(()=>{
-        if(error){
-            setDisplay('flex');
-            setOpacity(1);
-        }
-    }, [setOpacity, error]);
+    useEffect(() => {
+        setVisibility({opacity: 1, display: 'flex'});
+    }, [setVisibility])    
 
     return (
         <animated.div style={toggleError} className="input-error-container drop-shadow">
