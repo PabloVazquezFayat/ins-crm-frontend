@@ -15,7 +15,7 @@ export default function Dash() {
             if(data){
                 dispatch({type: 'SET_ACCOUNT', payload: data.owner});
             }else{
-                return history.push('/signin');
+                history.push('/signin');
             }
         }
     }

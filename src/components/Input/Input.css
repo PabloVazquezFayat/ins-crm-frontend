@@ -9,6 +9,7 @@
     background: transparent;
     padding: 10px;
     border: none;
+    border-radius: 0;
     border-bottom: solid 1px gray;
     font-size: 14px;
     font-weight: 400;
@@ -17,7 +18,8 @@
 .input-error-message{
     font-weight: 600;
     font-size: 12px;
-    color:rgb(233, 37, 47)
+    color:rgb(233, 37, 47);
+    border-radius: 0;
 }
 
 .input-error, .input:invalid{
@@ -27,5 +29,6 @@
     font-size: 14px;
     font-weight: 400;
     outline: none;
-    border-bottom: solid 2px rgb(233, 37, 47)
+    border-bottom: solid 2px rgb(233, 37, 47);
+    border-radius: 0;
 }

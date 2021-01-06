@@ -2,8 +2,6 @@ import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
-import { Auth } from './utility/Auth/Auth';
-
 import Home from './components/Home/Home';
 import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
@@ -21,7 +19,11 @@ import PageNotFound from './components/PageNotFound/PageNotFound';
 
 
 function App() {
+
+  const Auth = ()=> true;
+
   return (
+
     <div className="App">
         <Router>
             <Switch>

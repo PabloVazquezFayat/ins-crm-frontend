@@ -11,7 +11,6 @@ import InputError from '../InputError/InputError'
 import BreadCrumb from '../BreadCrumb/BreadCrumb'
 
 import { fetchData }  from '../../utility/API/fetch-data'
-import { Auth } from '../../utility/Auth/Auth'
 
 export default function Signup() { 
     
@@ -212,7 +211,6 @@ export default function Signup() {
         if(res && res.user){
             dispatch({type: 'SET_ACCOUNT', payload: res.user});
             dispatch({type: 'AUTH_USER', payload: res.user});
-            Auth();
             history.push('/dash');
         }
 
