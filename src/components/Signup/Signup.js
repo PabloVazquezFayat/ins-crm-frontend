@@ -188,7 +188,7 @@ export default function Signup() {
 
     }
     
-    const submit =  async ()=> {
+    const submit = async ()=> {
 
         const accountData = {
             email: email,
@@ -202,14 +202,20 @@ export default function Signup() {
             }
         };
 
-        const { data } = await fetchData.account.create(accountData);
+        const res = await fetchData.account.create(accountData);
 
-        if(data){
-            dispatch({type: 'SET_ACCOUNT', payload: data.user});
-            dispatch({type: 'AUTH_USER', payload: data.user});
+        if(res && res.errors){
+            const errors = res.errors.map((error)=> error['email']);
+            return setErrorMessages(errors);
+        }
+
+        if(res && res.user){
+            dispatch({type: 'SET_ACCOUNT', payload: res.user});
+            dispatch({type: 'AUTH_USER', payload: res.user});
             Auth();
             history.push('/dash');
         }
+
     };
 
     return (

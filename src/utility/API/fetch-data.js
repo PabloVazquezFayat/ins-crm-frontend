@@ -6,11 +6,9 @@ export const fetchData = {
         create: async (accountData)=> {
             try{
                 const newAccount = await axios.post(endpoints.account, accountData);
-                if(newAccount){
-                    return newAccount;
-                }
+                if(newAccount) return newAccount.data;
             }catch(error){
-                return error;
+                return error.response.data;
             }
         },
         read: async ()=> {

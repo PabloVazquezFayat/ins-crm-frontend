@@ -16,7 +16,7 @@ export default function Home() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState([]);
 
-    const signin = async  ()=> {
+    const signin = async ()=> {
 
         if(!email || !password){
             return setError(['please enter your email and password']);;

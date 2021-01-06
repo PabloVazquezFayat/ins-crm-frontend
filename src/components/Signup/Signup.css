@@ -20,7 +20,7 @@
 .sign-up-errors-container{
     /* background: blue; */
     width: 336px;
-    height: 240px;
+    height: 200px;
     margin: 20px 0px 0px 0px;
     display: flex;
     flex-direction: column-reverse;
