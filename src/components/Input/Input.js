@@ -4,7 +4,7 @@ import Hint from '../Hint/Hint'
 
 export default function Input(props) {
 
-    const { type, name, id, placeholder, minLength, maxLength, autoComplete, action, error, errorMessage, useHint, hintText } = props;
+    const { type, name, id, placeholder, minLength, maxLength, autoComplete, action, error, useHint, hintText } = props;
 
     const [hint, setHint] = useState(false);
 
@@ -26,7 +26,6 @@ export default function Input(props) {
                 onFocus={()=> useHint === true ? setHint(true) : null}
                 onBlur={()=> useHint === true ? setHint(false) : null}
             />
-            { errorMessage ? <p className="input-error-message">{errorMessage}</p> : null }
 
             <Hint toggle={hint}>
                 {hintText}

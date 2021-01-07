@@ -23,9 +23,48 @@ export default function Dash() {
     getData();
 
     return (
-        <div>
-            <h1>DASHBOARD</h1>
-            <h3>{userData.name}</h3>
+        <div className="dash-page">
+
+            <div className="dash-sidebar">
+                <h3>{userData.name}</h3>
+            </div>
+
+            <div className="dash-board-container">
+
+                <div className="search-bar">
+
+                </div>
+
+                <div className="dash-panels-container">
+
+                    <div className="clients-panel">
+
+                    </div>
+
+                    <div className="claims-panel">
+
+                    </div>
+
+                    <div className="policies-panel">
+
+                    </div>
+
+                    <div className="assets-panel">
+
+                    </div>
+
+                    <div className="recently-added-widget">
+
+                    </div>
+
+                    <div className="notes-panel">
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
     )
 }
