@@ -15,6 +15,7 @@ import Policies from './components/Policies/Policies';
 import PolicyEditor from './components/PolicyEditor/PolicyEditor';
 import Notes from './components/Notes/Notes';
 import NoteEditor from './components/NoteEditor/NoteEditor';
+import Account from './components/Account/Account';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 
 
@@ -49,43 +50,47 @@ function App() {
 
                 {/* DASH ROUTE */}
                 <Route exact path='/dash' render={()=> 
-                  Auth() === true ? <Dash/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Dash/> : <Redirect to={'/signin'}/>
                 } />
 
                 {/* CLIENT ROUTES */}
                 <Route exact path='/clients' render={()=>
-                  Auth() === true ? <Clients/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Clients/> : <Redirect to={'/signin'}/>
                 } />
 
                 <Route exact path='/clients/:id' render={()=> 
-                  Auth() === true ? <ClientEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <ClientEditor/> : <Redirect to={'/signin'}/>
                 } />
                 
                 {/* CLAIM ROUTES */}
                 <Route exact path='/claims' render={()=> 
-                  Auth() === true ? <Claims/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Claims/> : <Redirect to={'/signin'}/>
                 } />
 
                 <Route exact path='/claims/:id' render={()=> 
-                  Auth() === true ? <ClaimEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <ClaimEditor/> : <Redirect to={'/signin'}/>
                 } />
 
                 {/* POLICY ROUTES */}
                 <Route exact path='/policies' render={()=> 
-                  Auth() === true ? <Policies/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Policies/> : <Redirect to={'/signin'}/>
                 } />
 
                 <Route exact path='/policies/:id' render={()=> 
-                  Auth() === true ? <PolicyEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <PolicyEditor/> : <Redirect to={'/signin'}/>
                 } />
 
                 {/* NOTE ROUTES */}
                 <Route exact path='/notes' render={()=> 
-                  Auth() === true ? <Notes/> : <Redirect to={'/'}/>
+                  Auth() === true ? <Notes/> : <Redirect to={'/signin'}/>
                 } />
 
                 <Route exact path='/notes/:id' render={()=> 
-                  Auth() === true ? <NoteEditor/> : <Redirect to={'/'}/>
+                  Auth() === true ? <NoteEditor/> : <Redirect to={'/signin'}/>
+                } />
+
+                <Route exact path='/account' render={()=> 
+                  Auth() === true ? <Account/> : <Redirect to={'/signin'}/>
                 } />
 
                 <Route render={()=> <PageNotFound/>} />

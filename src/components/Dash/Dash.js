@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchData } from '../../utility/API/fetch-data'
 
+import DashSidebar from '../DashSidebar/DashSidebar';
+
 export default function Dash() {    
 
     const history = useHistory();
@@ -25,9 +27,7 @@ export default function Dash() {
     return (
         <div className="dash-page">
 
-            <div className="dash-sidebar">
-                <h3>{userData.name}</h3>
-            </div>
+            <DashSidebar user={userData}/>
 
             <div className="dash-board-container">
 
