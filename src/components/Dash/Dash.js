@@ -1,3 +1,4 @@
+import './Dash.css'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'

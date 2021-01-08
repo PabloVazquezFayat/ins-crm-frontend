@@ -1,35 +1,46 @@
 import './DashSidebar.css'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Dashboard from '@material-ui/icons/Dashboard'
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import DescriptionIcon from '@material-ui/icons/Description';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 
 export default function DashSidebar(props) {
 
     const { user } = props
 
     return (
-        <div className="dash-sidebar">
-            <div className="avatar-container">
+        <div className="dash-sidebar drop-shadow">
+
+            <div className="avatar-container drop-shadow">
                 <h4>{user.name}</h4>
-                <Link to="/profile"/>
+                <Link className="account-link-button" to="/account">Account</Link>
             </div>
-            <hr/>
+            
             <div className="dash-buttons">
                 <div className="dash-button">
-                    <Link to="/dash">Dashboard</Link>
+                    <Dashboard/>
+                    <Link className="dash-button-link" to="/dash">Dashboard</Link>
                 </div>
                 <div className="dash-button">
-                    <Link to="/clients">Clients</Link>
+                    <AccountBoxIcon/>
+                    <Link className="dash-button-link" to="/clients">Clients</Link>
                 </div>
                 <div className="dash-button">
-                    <Link to="/claims">Claims</Link>
+                    <DescriptionIcon/>
+                    <Link className="dash-button-link" to="/claims">Claims</Link>
                 </div>
                 <div className="dash-button">
-                    <Link to="/policies">Policies</Link>
+                    <DescriptionIcon/> 
+                    <Link className="dash-button-link" to="/policies">Policies</Link>
                 </div>
                 <div className="dash-button">
-                    <Link to="/Notes">Notes</Link>
+                    <NoteAddIcon/>
+                    <Link className="dash-button-link" to="/Notes">Notes</Link>
                 </div>
             </div>
+
         </div>
     )
 }
