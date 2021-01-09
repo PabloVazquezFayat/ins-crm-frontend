@@ -6,6 +6,7 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
+    overflow: hidden;
 }
 
 .avatar-container{
@@ -58,9 +59,14 @@
     color:  rgb(66, 66, 66);
 }
 
+.active-dash-button, .active-dash-button *{
+    background: rgb(37, 106, 233);
+    color: #fff !important;
+}
+
 .dash-button-link{
     /* background: white; */
-    margin: 4px 0px 0px 5px;
+    margin: 1px 0px 0px 5px;
     padding: 0px;
     text-decoration: none;
     text-align: left;

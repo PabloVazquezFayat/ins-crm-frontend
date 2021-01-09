@@ -28,7 +28,7 @@ export default function Dash() {
     return (
         <div className="dash-page">
 
-            <DashSidebar user={userData}/>
+            <DashSidebar user={userData} active="dash" />
 
             <div className="dash-board-container">
 
