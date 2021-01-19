@@ -15,7 +15,9 @@ export default function InputReview(props) {
     return (
         <div className='input-review-wrapper'>
            {label ? <label className='input-review-label'>{label}</label> : null}
-           { error && error.length === 0 ? <p className='input-review'>{children}</p> : <input className='input-review' type={errorType} /> }
+           { error && error.length === 0 
+           ? <p className='input-review'>{children}</p> 
+           : <input className='input-review' type={errorType} /> }
         </div>
     )
 }
