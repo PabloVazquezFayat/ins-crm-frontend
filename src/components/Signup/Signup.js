@@ -371,15 +371,15 @@ export default function Signup() {
                                     submit();
                                 }}>
                                     <h3 className='input-label'>Account Details</h3>
-                                    <InputReview label={'First name:'}>{firstName}</InputReview>
-                                    <InputReview label={'Last name:'}>{lastName}</InputReview>
-                                    <InputReview label={'Email:'}>{email}</InputReview>
+                                    <InputReview label={'First name:'} error={errorMessages} errorType={'text'}>{firstName}</InputReview>
+                                    <InputReview label={'Last name:'} error={errorMessages} errorType={'text'}>{lastName}</InputReview>
+                                    <InputReview label={'Email:'} error={errorMessages} errorType={'email'}>{email}</InputReview>
                                     <div className='spacer'></div>
                                     <h3 className='input-label'>Payment Method</h3>
-                                    <InputReview label={'Name:'}>{ccName}</InputReview>
-                                    <InputReview label={'Number:'}>{cc}</InputReview>
-                                    <InputReview label={'Expires:'}>{expiry}</InputReview>
-                                    <InputReview label={'Security code:'}>{securityCode}</InputReview>
+                                    <InputReview label={'Name:'} error={errorMessages} errorType={'text'}>{ccName}</InputReview>
+                                    <InputReview label={'Number:'} error={errorMessages} errorType={'number'}>{cc}</InputReview>
+                                    <InputReview label={'Expires:'} error={errorMessages} errorType={'text'}>{expiry}</InputReview>
+                                    <InputReview label={'Security code:'} error={errorMessages} errorType={'number'}>{securityCode}</InputReview>
                                 </InputCard>
                             </animated.form>
 
