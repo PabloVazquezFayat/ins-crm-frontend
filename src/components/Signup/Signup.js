@@ -187,7 +187,9 @@ export default function Signup() {
 
     }
     
-    const submit = async ()=> {
+    const submit = async (onError)=> {
+
+        
 
         const accountData = {
             email: email,
@@ -204,8 +206,17 @@ export default function Signup() {
         const res = await fetchData.account.create(accountData);
 
         if(res && res.errors){
-            const errors = res.errors.map((error)=> error['email']);
-            return setErrorMessages(errors);
+            const resErrors = res.errors.map((error)=> error['email']);
+            const errorsClone = {...errors};
+
+            errorsClone.card1.email = true;
+
+            setErrorMessages(resErrors);
+            setErrors(errorsClone);
+
+            onError();
+
+            return 
         }
 
         if(res && res.user){
@@ -368,18 +379,18 @@ export default function Signup() {
                             <animated.form style={toggleCard3}>
                                 <InputCard header="review &amp; submit" button="submit" action={(e)=> {
                                     e.preventDefault();
-                                    submit();
+                                    submit( ()=> gotToCard(1, '0px'));
                                 }}>
                                     <h3 className='input-label'>Account Details</h3>
-                                    <InputReview label={'First name:'} error={errorMessages} errorType={'text'}>{firstName}</InputReview>
-                                    <InputReview label={'Last name:'} error={errorMessages} errorType={'text'}>{lastName}</InputReview>
-                                    <InputReview label={'Email:'} error={errorMessages} errorType={'email'}>{email}</InputReview>
+                                    <InputReview label={'First name:'} >{firstName}</InputReview>
+                                    <InputReview label={'Last name:'}  >{lastName}</InputReview>
+                                    <InputReview label={'Email:'}      >{email}</InputReview>
                                     <div className='spacer'></div>
                                     <h3 className='input-label'>Payment Method</h3>
-                                    <InputReview label={'Name:'} error={errorMessages} errorType={'text'}>{ccName}</InputReview>
-                                    <InputReview label={'Number:'} error={errorMessages} errorType={'number'}>{cc}</InputReview>
-                                    <InputReview label={'Expires:'} error={errorMessages} errorType={'text'}>{expiry}</InputReview>
-                                    <InputReview label={'Security code:'} error={errorMessages} errorType={'number'}>{securityCode}</InputReview>
+                                    <InputReview label={'Name:'}          >{ccName}</InputReview>
+                                    <InputReview label={'Number:'}        >{cc}</InputReview>
+                                    <InputReview label={'Expires:'}       >{expiry}</InputReview>
+                                    <InputReview label={'Security code:'} >{securityCode}</InputReview>
                                 </InputCard>
                             </animated.form>
 
