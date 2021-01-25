@@ -28,7 +28,9 @@ export default function Dash() {
     return (
         <div className="dash-page">
 
-            <DashSidebar user={userData} active="dash" />
+            <div className="side-bar-container">
+                <DashSidebar user={userData} active="dash" />
+            </div>
 
             <div className="dash-board-container">
 
@@ -50,9 +52,9 @@ export default function Dash() {
 
                     </div>
 
-                    <div className="assets-panel">
+                </div>
 
-                    </div>
+                <div className="dash-panels-container">
 
                     <div className="recently-added-widget">
 
