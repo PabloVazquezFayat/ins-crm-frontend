@@ -38,32 +38,30 @@ export default function Dash() {
 
                 </div>
 
-                <div className="dash-panels-container">
+                <div className="dash-panels-container-1">
 
                     <div className="clients-panel">
-
+                            <h3>Clients</h3>
                     </div>
 
                     <div className="claims-panel">
-
+                        <h3>Claims</h3>
                     </div>
 
                     <div className="policies-panel">
-
+                        <h3>policies</h3>
                     </div>
 
                 </div>
 
-                <div className="dash-panels-container">
-
+                <div className="dash-panels-container-2">
                     <div className="recently-added-widget">
-
+                        <h3>Recently added</h3>
                     </div>
 
                     <div className="notes-panel">
-
+                        <h3>Notes recently added</h3>
                     </div>
-
                 </div>
 
             </div>

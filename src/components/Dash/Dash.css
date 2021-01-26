@@ -16,19 +16,30 @@
 .search-bar{
     background: green;
     width: 100%;
-    height: 50px;
+    height: 100px;
     margin: 0px 0px 10px 0px;
 }
 
-.dash-panels-container{
-    background: blue;
+.dash-panels-container-1{
+    /* background: blue; */
     width: 100%;
     height: auto;
     margin: 0px 0px 10px 0px;
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: 380px 380px 380px;
-    grid-template-rows: 200px;
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-auto-rows: 200px;
+}
+
+.dash-panels-container-2{
+    /* background: blue; */
+    width: 100%;
+    height: auto;
+    margin: 0px 0px 10px 0px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 400px; 
 }
 
 .clients-panel{
@@ -44,9 +55,9 @@
 }
 
 .recently-added-widget{
-    background: green;
+    background: violet;
 }
 
 .notes-panel{
-    background: yellow;
+    background: orange;
 }
