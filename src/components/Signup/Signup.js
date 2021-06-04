@@ -204,6 +204,7 @@ export default function Signup() {
         };
 
         const res = await fetchData.account.create(accountData);
+        console.log(res);
 
         if(res && res.errors){
             const resErrors = res.errors.map((error)=> error['email']);

@@ -1,0 +1,50 @@
+.dash-card-container{
+    /* background: red; */
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-card-container hr{
+    background: #256ae9;
+    width: 200px;
+    height: 7px;
+    margin: 15px 0px 0px 10px;
+    padding: 0px;
+    border-radius: 10px;
+    border: none;
+}
+
+.dash-card-wrapper{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dash-card-content{
+    /* background: blue; */
+    width: 100%;
+    height: 100%;
+}
+
+.dash-card-content h2{
+    /* background: red; */
+    padding: 0px 20px;
+    margin: 10px 0px;
+}
+
+.dash-card-content h1{
+    /* background: purple; */
+    padding: 0px 20px;
+    margin: 10px 0px;
+}
+
+.dash-card-actions{
+    /* background: green; */
+    width: 35px;
+    padding: 12px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}

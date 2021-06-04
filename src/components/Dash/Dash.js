@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchData } from '../../utility/API/fetch-data'
 
-import DashSidebar from '../DashSidebar/DashSidebar';
+import DashSidebar from '../DashSidebar/DashSidebar'
+import DashCard from '../DashCard/DashCard'
 
 export default function Dash() {    
 
@@ -40,26 +41,36 @@ export default function Dash() {
 
                 <div className="dash-panels-container-1">
 
-                    <div className="clients-panel">
-                            <h3>Clients</h3>
+                    <div className="panel-container">
+                        <DashCard className="panel-container" title={"Clients"} count={"78"} link={'/clients'} />
                     </div>
 
-                    <div className="claims-panel">
-                        <h3>Claims</h3>
+                    <div className="panel-container">
+                        <DashCard className="panel-container" title={"Claims"} count={"78"} link={'/claims'} />
                     </div>
 
-                    <div className="policies-panel">
-                        <h3>policies</h3>
+                    <div className="panel-container">
+                        <DashCard className="panel-container" title={"Policies"} count={"78"} link={'/policies'} />
                     </div>
 
                 </div>
 
                 <div className="dash-panels-container-2">
-                    <div className="recently-added-widget">
+                    <div className="panel-container">
                         <h3>Recently added</h3>
                     </div>
 
-                    <div className="notes-panel">
+                    <div className="panel-container">
+                        <h3>Notes recently added</h3>
+                    </div>
+                </div>
+
+                <div className="dash-panels-container-3">
+                    <div className="panel-container">
+                        <h3>Recently added</h3>
+                    </div>
+
+                    <div className="panel-container">
                         <h3>Notes recently added</h3>
                     </div>
                 </div>

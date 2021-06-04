@@ -113,9 +113,10 @@ export const fetchData = {
         },
         login: async (credentials)=> {
             try{
-                const { data: { user } } = await axios.post(endpoints.login, credentials);
-                if(user){
-                    return user;
+                const data = await axios.post(endpoints.login, credentials);
+                console.log(data);
+                if(data.data.user){
+                    return data.data.user;
                 }
             }catch(error){
                 return error.response.data;
